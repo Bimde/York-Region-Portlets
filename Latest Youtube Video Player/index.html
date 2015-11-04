@@ -29,6 +29,8 @@
       }
 	  
       var done = false;
+	  
+	  // Play video for 5 seconds as a 'peak' into the video
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
           setTimeout(stopVideo, 5000);

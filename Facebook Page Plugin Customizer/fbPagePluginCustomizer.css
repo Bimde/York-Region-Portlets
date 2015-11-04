@@ -1,0 +1,30 @@
+.inputLabel {
+  margin-right: 10px;
+}
+
+.displayNone {
+  display:none;
+}
+
+#customize {
+  padding: 5px;
+  margin: 5px;
+  margin-top: 0px;
+}
+
+.labels {
+  font-family: verdana;
+}
+
+#form {
+  background-color: grey;
+  padding: 2px;
+  margin: 0px auto;
+  width: 388px;
+}
+
+.form-element {
+  margin: 10px auto;
+  padding: 2px;
+  background-color: lightgrey;
+}
