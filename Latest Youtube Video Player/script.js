@@ -33,25 +33,11 @@ function getLatestVideo () {
 function loadVideo() {
     document.getElementById("results").style.display = "none";
     var tag = document.createElement('script');
-
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
     var player;
-    var done = false;
-}
-
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '216',
-        width: '384',
-        videoId: myText,
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        }
-    });
+    done = false;
 }
 
 // Play video for 3 seconds as a 'peak' into the video
@@ -70,4 +56,15 @@ function stopVideo() {
     player.stopVideo();
 }
 
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '216',
+        width: '384',
+        videoId: myText,
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
 window.onload = getLatestVideo();
