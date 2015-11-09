@@ -1,3 +1,25 @@
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
 
+    var url = "https://api.instagram.com/v1/users/1345487931/media/recent/?client_id=91249965ed9d44d39ee9b6c244b252ec&count=1";
+    function requestData()
+    {
+        var xkr = new XMLHttpRequest();
+        console.log("Hello");
+        xkr.open("GET", url, true);
+        xkr.setRequestHeader('Access-Control-Allow-Origin', "*");
+        xkr.send();
+        console.log("Hello2");
+        myText = xkr.response;
+        console.log(myText);
+        myText = JSON.parse(myText);
+        console.log(myText);
+    }
+
+//    $(docmuent).ready(function() {
+//        $.ajax();
+//    });
+    requestData();
+</script>
 </body>
