@@ -1,25 +1,29 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<table>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+</table>
 <script>
-
-    var url = "https://api.instagram.com/v1/users/1345487931/media/recent/?client_id=91249965ed9d44d39ee9b6c244b252ec&count=1";
-    function requestData()
-    {
-        var xkr = new XMLHttpRequest();
-        console.log("Hello");
-        xkr.open("GET", url, true);
-        xkr.setRequestHeader('Access-Control-Allow-Origin', "*");
-        xkr.send();
-        console.log("Hello2");
-        myText = xkr.response;
-        console.log(myText);
-        myText = JSON.parse(myText);
-        console.log(myText);
-    }
-
-//    $(docmuent).ready(function() {
-//        $.ajax();
-//    });
-    requestData();
+    var accessToken = "2271466728.9124996.1ef50ce916c249b39691e52c3927b95e";
+    var noImages = 6;
+    var url = "https://api.instagram.com/v1/users/1345487931/media/recent/?access_token="+accessToken+"&count="+noImages;
+    var images;
+    $.ajax({
+        type: "GET",
+        dataType: "jsonp",
+        url: url,
+        success: function(data) {
+            images = document.getElementsByTagName("td");
+            console.log(data);
+            for(var i = 0; i < noImages; i ++) {
+                var img = document.createElement("IMG");
+                img.setAttribute("src", data.data[i].images.thumbnail.url);
+                images[i].appendChild(img);
+                console.log(img.src);
+            }
+        }
+    });
 </script>
 </body>
