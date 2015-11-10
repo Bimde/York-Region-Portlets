@@ -8,6 +8,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <div class="container-fluid">
-        <button>Hello</button>
+        <button id = "time">Hello</button>
     </div>
+<script>
+    var bob = new Date();
+
+    function displayTime(id) {
+        var date = new Date();
+        document.getElementById(id).innerHTML = date.getHours() + ":" +date.getMinutes() + ":"+date.getSeconds();
+    }
+
+    setInterval(displayTime("time"),1000);
+</script>
 </body>
