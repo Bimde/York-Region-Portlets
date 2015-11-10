@@ -16,12 +16,14 @@
         url: url,
         success: function(data) {
             images = document.getElementsByTagName("td");
-            console.log(data);
             for(var i = 0; i < noImages; i ++) {
                 var img = document.createElement("IMG");
+                var link = document.createElement("A");
+                link.setAttribute("href", data.data[i].images.standard_resolution.url);
+                link.setAttribute("target", "_blank");
                 img.setAttribute("src", data.data[i].images.thumbnail.url);
-                images[i].appendChild(img);
-                console.log(img.src);
+                link.appendChild(img);
+                images[i].appendChild(link);
             }
         }
     });
