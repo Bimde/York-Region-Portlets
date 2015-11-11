@@ -1,0 +1,63 @@
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<input id = "input" type= "text" placeholder="Remember to do something">
+	<button onclick="addToList()">Add to list</button>
+	<ul id="list"></ul>
+	
+	<script>
+		function addElement(text, num) {
+			if (text.trim() != "") {
+				console.log("Hi");
+				var textNode = document.createTextNode(text);
+				var li = document.createElement("LI");
+				li.appendChild(textNode);
+				document.getElementById("list").appendChild(li);
+				li.setAttribute("index", (num+""));
+			}
+		}
+
+		function addToList(text) {
+			var text = document.getElementById("input").value;
+			if (text.trim() != "") {
+				var textNode = document.createTextNode(text);
+				var li = document.createElement("LI");
+				li.appendChild(textNode);
+				document.getElementById("list").appendChild(li);
+				var string = localStorage.getItem("list-storage");
+				if(localStorage.getItem('list-storage') !== null) {
+					var temp = JSON.parse(localStorage['list-storage']);
+					temp.myData.splice(temp.myData.length, 0, text);
+					localStorage.setItem('list-storage', JSON.stringify(temp));
+					li.setAttribute("index", ((temp.myData.length-1)+""));
+				}
+				else {
+					var data = {"myData":[text]};
+					localStorage.setItem('list-storage', JSON.stringify(data));
+				}
+			}
+			console.log(JSON.parse(localStorage.getItem('list-storage')));
+		}
+
+		function removeFromList(index) {
+			var obj = JSON.parse(localStorage['list-storage']);
+			obj.myData.splice(index, 1);
+			localStorage.setItem('list-storage', JSON.stringify(obj));
+		}
+
+		$("#list").on('click', 'li', function() {
+			var temp = $(this).attr("index");
+			removeFromList(temp);
+			$(this).remove();
+		});
+
+		$(document).ready(function() {
+			if(localStorage.getItem('list-storage') !== null){
+				var obj = JSON.parse(localStorage.getItem('list-storage'));
+				for(var i = 0; i < obj.myData.length; i++) {
+					console.log((obj.myData[i]));
+					addElement(obj.myData[i], i);
+				}
+			}
+		});
+	</script>
+</body>
