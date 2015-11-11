@@ -1,8 +1,27 @@
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<input id = "input" type= "text" placeholder="Remember to do something">
-	<button onclick="addToList()">Add to list</button>
-	<ul id="list"></ul>
+	<style>
+		.box-design {
+			border-color: gray;
+			border-width: 5px;
+			border-style: outset;
+			padding: 5px;
+			height: 95%;
+			width: 95%;
+			margin: 0px;
+		}
+	/* Change url to image of lower resolution */
+		ul {
+			list-style-image: url('https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/unchecked_checkbox.png');
+		}
+	</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	<div class = "box-design">
+		<input id = "input" type= "text" placeholder="Remember to do something">
+		<button onclick="addToList()">Add to list</button>
+		<ul id="list"></ul>
+	</div>
 	
 	<script>
 		function addElement(text, num) {
