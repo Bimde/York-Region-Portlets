@@ -12,7 +12,7 @@
         div#favourties ul#favsBar li.item div#add.item {
             background-color: lightgrey;
             border-radius: 3px;
-            border: 1px solid black;
+            border: 1px solid dimgrey;
         }
 
         div#favourties ul#favsBar li.item div#add.item:hover {
@@ -43,12 +43,12 @@
             margin-bottom: 5px;
         }
 
-        div#favourties div#inputForm div#button {
+        div#favourties div#inputForm div.button {
             display: inline-block;
             width: 125px;
             padding: 4px;
-            margin-left: 129px;
-            margin-top: 4px;
+            margin-left: 45px;
+            margin-top: 6px;
             margin-bottom: 5px;
             height: 20px;
             border: 1px solid dimgrey;
@@ -56,16 +56,21 @@
             border-radius: 3px;
         }
 
-        div#favourties div#inputForm div#button:hover {
+        div#favourties div#inputForm div#small.button {
+            width: 60px;
+            margin-left:10px;
+        }
+
+        div#favourties div#inputForm div.button:hover {
             background-color: gray;
         }
 
-        div#favourties div#inputForm div#button:active{
+        div#favourties div#inputForm div.button:active{
             background-color: dimgrey;
         }
 
         div#favourties div#inputForm {
-            /*display:none;*/
+            display:none;
             margin: 20px;
             background-color: lightgrey;
             padding: 10px;
@@ -77,7 +82,11 @@
     </style>
     <script>
         function openAddMenu() {
-            alert("open add menu");
+            document.getElementById("inputForm").style.display = "block";
+        }
+
+        function closeAddFavouritesMenu() {
+            document.getElementById("inputForm").style.display = "none";
         }
 
         function addToFavourites() {
@@ -89,7 +98,8 @@
         <div id="inputForm">
             <div><span class="inputLabel">Link</span> <input class="input102" placeholder="http://york.ca"></div>
             <div><span class="inputLabel">Name</span> <input class="input102" placeholder="York Region"></div>
-            <div id="button" onclick="addToFavourites()">Add to favourties</div>
+            <div class="button" id="small" onclick="closeAddFavouritesMenu()">Cancel</div>
+            <div class="button" onclick="addToFavourites()">Add to favourties</div>
         </div>
     </div>
 </body>
