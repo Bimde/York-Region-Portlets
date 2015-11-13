@@ -10,8 +10,8 @@
 			margin: 0px;
 		}
 	/* Change url to image of lower resolution */
-		ul {
-			list-style-image: url('https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/unchecked_checkbox.png');
+		#ulList {
+			list-style-image: url('http://i1067.photobucket.com/albums/u432/Bimde/Unchecked%20Box_zps8h2s0kkh.png');
 		}
 	</style>
 
@@ -20,29 +20,28 @@
 	<div class = "box-design">
 		<input id = "input" type= "text" placeholder="Remember to do something">
 		<button onclick="addToList()">Add to list</button>
-		<ul id="list"></ul>
+		<ul id="ulList"></ul>
 	</div>
 	
 	<script>
 		function addElement(text, num) {
 			if (text.trim() != "") {
-				console.log("Hi");
 				var textNode = document.createTextNode(text);
 				var li = document.createElement("LI");
 				li.appendChild(textNode);
-				document.getElementById("list").appendChild(li);
+				document.getElementById("ulList").appendChild(li);
 				li.setAttribute("index", (num+""));
 			}
 		}
 
-		function addToList(text) {
+		function addToList() {
 			var text = document.getElementById("input").value;
+			document.getElementById("input").value = null;
 			if (text.trim() != "") {
 				var textNode = document.createTextNode(text);
 				var li = document.createElement("LI");
 				li.appendChild(textNode);
-				document.getElementById("list").appendChild(li);
-				var string = localStorage.getItem("list-storage");
+				document.getElementById("ulList").appendChild(li);
 				if(localStorage.getItem('list-storage') !== null) {
 					var temp = JSON.parse(localStorage['list-storage']);
 					temp.myData.splice(temp.myData.length, 0, text);
@@ -63,17 +62,22 @@
 			localStorage.setItem('list-storage', JSON.stringify(obj));
 		}
 
-		$("#list").on('click', 'li', function() {
+		$("#ulList").on('click', 'li', function() {
 			var temp = $(this).attr("index");
 			removeFromList(temp);
 			$(this).remove();
 		});
 
+        $("#input").keydown(function(event){
+            if(event.which === 13) {
+                addToList();
+            }
+        })
+
 		$(document).ready(function() {
 			if(localStorage.getItem('list-storage') !== null){
 				var obj = JSON.parse(localStorage.getItem('list-storage'));
 				for(var i = 0; i < obj.myData.length; i++) {
-					console.log((obj.myData[i]));
 					addElement(obj.myData[i], i);
 				}
 			}
