@@ -1,0 +1,95 @@
+<body>
+    <style>
+        div#favourties ul#favsBar {
+            list-style-type: none;
+        }
+
+        div#favourties ul#favsBar li.item {
+            display:inline-block;
+            margin: 5px;
+            padding: 0px;
+        }
+        div#favourties ul#favsBar li.item div#add.item {
+            background-color: lightgrey;
+            border-radius: 3px;
+            border: 1px solid black;
+        }
+
+        div#favourties ul#favsBar li.item div#add.item:hover {
+            background-color: gray;
+        }
+
+        div#favourties ul#favsBar li.item div#add.item:active {
+            background-color: dimgray;
+        }
+
+        div#favourties ul#favsBar li.item div.item {
+            display: block;
+            margin: 0px auto;
+            padding: 8px;
+            background-color: darkseagreen;
+        }
+
+        div#favourties div#inputForm div span.inputLabel {
+            display: inline-block;
+            width: 60px;
+            text-align: center;
+        }
+
+        div#favourties div#inputForm div input.input102 {
+            display: inline-block;
+            width: 200px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        div#favourties div#inputForm div#button {
+            display: inline-block;
+            width: 125px;
+            padding: 4px;
+            margin-left: 129px;
+            margin-top: 4px;
+            margin-bottom: 5px;
+            height: 20px;
+            border: 1px solid dimgrey;
+            text-align: center;
+            border-radius: 3px;
+        }
+
+        div#favourties div#inputForm div#button:hover {
+            background-color: gray;
+        }
+
+        div#favourties div#inputForm div#button:active{
+            background-color: dimgrey;
+        }
+
+        div#favourties div#inputForm {
+            /*display:none;*/
+            margin: 20px;
+            background-color: lightgrey;
+            padding: 10px;
+            border-radius: 4px;
+            width: 270px;
+            height: 100px;
+        }
+
+    </style>
+    <script>
+        function openAddMenu() {
+            alert("open add menu");
+        }
+
+        function addToFavourites() {
+            alert("add to favourites");
+        }
+    </script>
+    <div id="favourties">
+        <ul id="favsBar"><li class="item"><div class="item" id="add" onclick="openAddMenu()">New bookmark</div></li></ul>
+        <div id="inputForm">
+            <div><span class="inputLabel">Link</span> <input class="input102" placeholder="http://york.ca"></div>
+            <div><span class="inputLabel">Name</span> <input class="input102" placeholder="York Region"></div>
+            <div id="button" onclick="addToFavourites()">Add to favourties</div>
+        </div>
+    </div>
+</body>
