@@ -1,5 +1,5 @@
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <style>
         div#favourties ul#favsBar {
             list-style-type: none;
@@ -88,10 +88,9 @@
             width: 276px;
             height: 100px;
         }
-
     </style>
-    <script>
 
+    <script>
         var currentData;
         // USE localStorage['varname'] to save favourites and load all values into array for faster access
         function openAddMenu() {
@@ -136,16 +135,23 @@
             } else {
                 currentData = {"favourites":[]}
             }
-            alert("Done!");
         }
 
         function addToFavourites() {
-            var text = document.getElementById("addToListName").value;
-            var link = document.getElementById("addToListLink").value;
-            var index = currentData.favourites.length;
-            internalAddToFavourites(text, link, index);
-            saveToFile(text, link);
-            document.getElementById("inputForm").style.display = "none";
+            var text = document.getElementById("addToListName").value.trim();
+            var link = document.getElementById("addToListLink").value.trim();
+
+            if(link === null || link === "") {
+                alert("You entered an invalid link! Please re-enter.")
+            } else {
+                if(text == null || text == "") {
+                    text = link;
+                }
+                var index = currentData.favourites.length;
+                internalAddToFavourites(text, link, index);
+                saveToFile(text, link);
+                document.getElementById("inputForm").style.display = "none";
+            }
         }
 
         function internalAddToFavourites(name, link, index) {
@@ -174,7 +180,9 @@
         $(document).ready(function() {
             loadData();
         });
+
     </script>
+
     <div id="favourties">
         <ul id="favsBar"><li class="item"><div class="item" onclick="openAddMenu()">New bookmark</div></li></ul>
         <div id="inputForm">
