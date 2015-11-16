@@ -1,4 +1,5 @@
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <style>
         div#favourties ul#favsBar {
             list-style-type: none;
@@ -6,28 +7,29 @@
 
         div#favourties ul#favsBar li.item {
             display:inline-block;
-            margin: 5px;
+            margin: 0px;
             padding: 0px;
-        }
-        div#favourties ul#favsBar li.item div#add.item {
-            background-color: lightgrey;
-            border-radius: 3px;
-            border: 1px solid dimgrey;
-        }
-
-        div#favourties ul#favsBar li.item div#add.item:hover {
-            background-color: gray;
-        }
-
-        div#favourties ul#favsBar li.item div#add.item:active {
-            background-color: dimgray;
         }
 
         div#favourties ul#favsBar li.item div.item {
-            display: block;
-            margin: 0px auto;
+            display:inline-block;
+            background-color: lightgrey;
+            margin-left: 5px;
+            margin-right: 5px;
             padding: 8px;
-            background-color: darkseagreen;
+            border-radius: 3px;
+            border: 1px solid dimgrey;
+            line-height: 20px;
+            text-align:center;
+            height: 20px;
+        }
+
+        div#favourties ul#favsBar li.item div.item:hover {
+            background-color: gray;
+        }
+
+        div#favourties ul#favsBar li.item div.item:active {
+            background-color: dimgray;
         }
 
         div#favourties div#inputForm div span.inputLabel {
@@ -83,12 +85,14 @@
             background-color: lightgrey;
             padding: 10px;
             border-radius: 4px;
-            width: 270px;
+            width: 276px;
             height: 100px;
         }
 
     </style>
     <script>
+
+        var currentData;
         // USE localStorage['varname'] to save favourites and load all values into array for faster access
         function openAddMenu() {
             document.getElementById("inputForm").style.display = "block";
@@ -98,15 +102,84 @@
             document.getElementById("inputForm").style.display = "none";
         }
 
-        function addToFavourites() {
-            alert("add to favourites");
+        function clickedFavourite(item) {
+            window.open(item.getAttribute("href"),'_blank');
         }
+
+        function removeFromBookmarks(item) {
+            removeFromStorage(item);
+            item.remove();
+        }
+
+        function saveToFile(name, link) {
+            if (localStorage && localStorage.getItem("favourites-storage")) {
+                var storage = JSON.parse(localStorage.getItem("favourites-storage"));
+                storage.favourites.push({"name":name, "link":link});
+                currentData = storage;
+                localStorage.setItem("favourites-storage", JSON.stringify(storage));
+            }
+            else {
+                var data = {"favourites":[{"name":name, "link":link}]};
+                currentData = data;
+                localStorage.setItem("favourites-storage", JSON.stringify(data));
+            }
+            console.log(JSON.parse(localStorage.getItem("favourites-storage")));
+        }
+
+        function loadData() {
+            if (localStorage && localStorage.getItem("favourites-storage")) {
+                var storage = JSON.parse(localStorage.getItem("favourites-storage"));
+                for(var i = 0; i < storage.favourites.length; i++) {
+                    internalAddToFavourites(storage.favourites[i].name, storage.favourites[i].link, i);
+                }
+                currentData = storage;
+            } else {
+                currentData = {"favourites":[]}
+            }
+            alert("Done!");
+        }
+
+        function addToFavourites() {
+            var text = document.getElementById("addToListName").value;
+            var link = document.getElementById("addToListLink").value;
+            var index = currentData.favourites.length;
+            internalAddToFavourites(text, link, index);
+            saveToFile(text, link);
+            document.getElementById("inputForm").style.display = "none";
+        }
+
+        function internalAddToFavourites(name, link, index) {
+            var list = document.getElementById("favsBar");
+            var li = document.createElement("LI");
+            var div = document.createElement("DIV");
+            var textNode = document.createTextNode(name);
+            div.appendChild(textNode);
+            div.setAttribute("class", "item");
+            div.setAttribute("href", link);
+            div.setAttribute("onclick", "clickedFavourite(this)");
+            div.setAttribute("oncontextmenu", "removeFromBookmarks(this)");
+            li.appendChild(div);
+            li.setAttribute("class", "item");
+            li.setAttribute("index", index);
+            list.appendChild(li);
+        }
+
+       function removeFromStorage(item) {
+           var index = item.getAttribute("index");
+           currentData.favourites.splice(index, 1);
+           localStorage.setItem("favourites-storage", JSON.stringify(currentData));
+           console.log(currentData);
+       }
+
+        $(document).ready(function() {
+            loadData();
+        });
     </script>
     <div id="favourties">
-        <ul id="favsBar"><li class="item"><div class="item" id="add" onclick="openAddMenu()">New bookmark</div></li></ul>
+        <ul id="favsBar"><li class="item"><div class="item" onclick="openAddMenu()">New bookmark</div></li></ul>
         <div id="inputForm">
-            <div><span class="inputLabel">Link</span> <input class="input102" placeholder="http://york.ca"></div>
-            <div><span class="inputLabel">Name</span> <input class="input102" placeholder="York Region"></div>
+            <div><span class="inputLabel">Link</span> <input id = "addToListLink" class="input102" placeholder="http://york.ca"></div>
+            <div><span class="inputLabel">Name</span> <input id = "addToListName" class="input102" placeholder="York Region"></div>
             <div class="button" id="small" onclick="closeAddFavouritesMenu()">Cancel</div>
             <div class="button" onclick="addToFavourites()">Add to favourties</div>
         </div>
