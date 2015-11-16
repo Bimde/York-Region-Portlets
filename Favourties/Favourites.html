@@ -3,6 +3,7 @@
     <style>
         div#favourties ul#favsBar {
             list-style-type: none;
+            padding: 0px;
         }
 
         div#favourties ul#favsBar li.item {
@@ -55,7 +56,6 @@
             display: inline-block;
             width: 125px;
             padding: 4px;
-            margin-left: 45px;
             margin-top: 6px;
             margin-bottom: 5px;
             height: 20px;
@@ -67,7 +67,6 @@
 
         div#favourties div#inputForm div#small.button {
             width: 60px;
-            margin-left:10px;
             float: left;
         }
 
@@ -80,8 +79,7 @@
         }
 
         div#favourties div#inputForm {
-            display:none;
-            margin: 20px;
+            display: none;
             background-color: lightgrey;
             padding: 10px;
             border-radius: 4px;
@@ -95,10 +93,12 @@
         // USE localStorage['varname'] to save favourites and load all values into array for faster access
         function openAddMenu() {
             document.getElementById("inputForm").style.display = "block";
+            document.getElementById("favsBar").style.display = "none";
         }
 
         function closeAddFavouritesMenu() {
             document.getElementById("inputForm").style.display = "none";
+            document.getElementById("favsBar").style.display = "block";
         }
 
         function clickedFavourite(item) {
@@ -150,7 +150,7 @@
                 var index = currentData.favourites.length;
                 internalAddToFavourites(text, link, index);
                 saveToFile(text, link);
-                document.getElementById("inputForm").style.display = "none";
+                closeAddFavouritesMenu();
             }
         }
 
