@@ -34,6 +34,11 @@
             display: inline-block;
             width: 60px;
             text-align: center;
+            float: left;
+            height: 20px;
+            line-height: 20px;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
 
         div#favourties div#inputForm div input.input102 {
@@ -41,6 +46,7 @@
             width: 200px;
             margin-top: 5px;
             margin-bottom: 5px;
+            float:right;
         }
 
         div#favourties div#inputForm div.button {
@@ -54,11 +60,13 @@
             border: 1px solid dimgrey;
             text-align: center;
             border-radius: 3px;
+            float: right;
         }
 
         div#favourties div#inputForm div#small.button {
             width: 60px;
             margin-left:10px;
+            float: left;
         }
 
         div#favourties div#inputForm div.button:hover {
@@ -81,6 +89,7 @@
 
     </style>
     <script>
+        // USE localStorage['varname'] to save favourites and load all values into array for faster access
         function openAddMenu() {
             document.getElementById("inputForm").style.display = "block";
         }
