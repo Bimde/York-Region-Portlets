@@ -107,15 +107,40 @@
           __SPNS__data = localStorage.getItem("forum-portlet-cache-testing");
           if(__SPNS__data !== null) {
               __SPNS__data = JSON.parse(__SPNS__data);
+              console.log(__SPNS__data);
           } else {
               __SPNS__data = {"questions":[]};
           }
+          loadHomePanel();
           switchPanel(HOME);
+      }
+
+      function loadHomePanel() {
+          var array = __SPNS__data.questions;
+          for(var i = 0; i < array.length; i ++) {
+              var li = document.createElement("LI");
+              var header = document.createElement("H4");
+              var content = document.createElement("P");
+
+              var textNode = document.createTextNode(array[i].text);
+              content.appendChild(textNode);
+
+              textNode = document.createTextNode(array[i].title);
+              header.appendChild(textNode);
+
+              li.appendChild(header);
+              li.appendChild(content);
+              li.setAttribute("class", "item");
+              li.setAttribute("id", "questionNumber"+i);
+
+              var list = document.getElementById("itemList");
+              list.appendChild(li);
+          }
       }
 
       function writeToCache(title, text) {
           __SPNS__data.questions[__SPNS__data.questions.length] = {"title":title, "text":text, "responses":[]};
-          localStorage.setItem("forum-portlet-cache-testing", __SPNS__data);
+          localStorage.setItem("forum-portlet-cache-testing", JSON.stringify(__SPNS__data));
       }
 
       function addToList(title, text) {
