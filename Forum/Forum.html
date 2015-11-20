@@ -22,7 +22,6 @@
       }
 
       #forum #home.container {
-          display:none;
       }
 
       #forum #question-view.container {
@@ -30,17 +29,18 @@
           width: 300px;
           padding: 0px;
           overflow: initial;
-          display:none;
       }
+      #forum #ask-question.container {
+          background-color: lightgrey;
+          padding: 5px;
+          width: 290px;
+          overflow: auto;
+      }
+
       #forum #question-view.container #actualQuestion {
           overflow: auto;
           height: 215px;
           text-align: left;
-      }
-
-      #forum #question-view.container #ask-question-body textarea {
-         // height: 200px;
-          //width: 200px;
       }
 
       #forum #home.container #questionList {
@@ -54,7 +54,7 @@
 
       #forum li {
           margin: 5px;
-          margin-top: 0px;
+          margin-top: 0;
           padding: 5px;
           background-color: lightgrey;
           border-radius: 2px;
@@ -68,11 +68,75 @@
           border-radius: 4px;
           padding: 3px;
       }
+
+      #forum #ask-question.container #ask-question-body textarea {
+          margin-top:5px;
+          resize: vertical;
+          margin-left: 5px;
+      }
+
+      #forum #ask-question.container #ask-question-body input {
+          margin-left: 5px;
+          margin-right: 0;
+          padding: 0;
+          width: 225px;
+      }
+
+      #forum #ask-question.container #ask-question-body button {
+          padding: 5px;
+          margin-top: 5px;
+          margin-left: 109px;
+          float:left;
+      }
+      #forum #ask-question.container #ask-question-body button#second {
+          margin-left: 10px;
+      }
   </style>
 
   <script>
-      function addToList() {
-          return;
+
+      // Using '__SPNS__' as a variable prefix / postfix results in the 'Web Content Manager
+      // ScriptPortletNamespace plug-in' on WebShere automatically replacing in with a portlet
+      // specific namespace, allowing for the variable names in each portlet to not interfere
+      var __SPNS__data;
+      var HOME = "home";
+      var QUESTION_VIEW = "question-view";
+      var ASK_QUESTION = "ask-question";
+
+      function loadData() {
+          __SPNS__data = localStorage.getItem("forum-portlet-cache-testing");
+          if(__SPNS__data !== null) {
+              __SPNS__data = JSON.parse(__SPNS__data);
+          } else {
+              __SPNS__data = {"questions":[]};
+          }
+          switchPanel(HOME);
+      }
+
+      function writeToCache(title, text) {
+          __SPNS__data.questions[__SPNS__data.questions.length] = {"title":title, "text":text, "responses":[]};
+          localStorage.setItem("forum-portlet-cache-testing", __SPNS__data);
+      }
+
+      function addToList(title, text) {
+          var li = document.createElement("LI");
+          var header = document.createElement("H3");
+          var content = document.createElement("P");
+
+          var textNode = document.createTextNode(text);
+          content.appendChild(textNode);
+
+          textNode = document.createTextNode(title);
+          header.appendChild(textNode);
+
+          li.appendChild(header);
+          li.appendChild(content);
+          li.setAttribute("class", "item");
+          li.setAttribute("id", "questionNumber"+__SPNS__data.questions.length);
+
+          var list = document.getElementById("itemList");
+          list.appendChild(li);
+          writeToCache(title, text);
       }
 
       function showAnswerQuestionForm() {
@@ -80,8 +144,93 @@
       }
 
       function showAskQuestionForm() {
-          return;
+          switchPanel(ASK_QUESTION);
       }
+
+      function postQuestion() {
+          var title = document.getElementById("question-title").value;
+          var text = document.getElementById("question-text").value;
+          console.log(title + " : " + text);
+          title = title.trim();
+          text = text.trim();
+
+          if(title === "" || title === null) {
+              alert("Enter a question title!");
+              return;
+          } else if (text === "" || text === null) {
+              var conf = confirm("You are asking a question without any text in the body, are you sure you want to proceed?");
+              if(conf != true) {
+                  return;
+              }
+          }
+
+          addToList(title, text);
+          switchPanel(QUESTION_VIEW);
+          loadQuestion(__SPNS__data.questions.length-1);
+      }
+
+      function loadQuestion(num) {
+          var arrayData = __SPNS__data.questions[num];
+          var list = document.getElementById("responses");
+          while(list.firstChild) {
+              list.removeChild(list.firstChild);
+          }
+
+          var li = document.createElement("LI");
+          var header = document.createElement("H3");
+          var content = document.createElement("P");
+
+          var text = document.createTextNode(arrayData.title);
+          header.appendChild(text);
+
+          text = document.createTextNode(arrayData.text);
+          content.appendChild(text);
+
+          li.appendChild(header);
+          li.appendChild(content);
+          li.setAttribute("class", "item");
+          li.setAttribute("id", "actual-question");
+
+          list.appendChild(li);
+
+          for(var i = 0; i < arrayData.responses.length; i++) {
+              li = document.createElement("LI");
+              content = document.createElement("P");
+
+              text = document.createTextNode(arrayData.responses[i].text);
+              content.appendChild(text);
+
+              li.appendChild(content);
+              li.setAttribute("class", "item");
+              li.setAttribute("id", "question"+num+"Response"+i);
+
+              list.appendChild(li);
+          }
+      }
+
+      function switchPanel(panelName) {
+          console.log(panelName);
+
+          var panel = document.getElementById(panelName);
+          panel.style.display = "block";
+
+          switch(panelName) {
+              case HOME:
+                  document.getElementById(QUESTION_VIEW).style.display = "none";
+                  document.getElementById(ASK_QUESTION).style.display = "none";
+                  break;
+              case QUESTION_VIEW:
+                  document.getElementById(HOME).style.display = "none";
+                  document.getElementById(ASK_QUESTION).style.display = "none";
+                  break;
+              case ASK_QUESTION:
+                  document.getElementById(QUESTION_VIEW).style.display = "none";
+                  document.getElementById(HOME).style.display = "none";
+                  break;
+          }
+      }
+
+      window.onload = loadData;
   </script>
 
   <div id="forum">
@@ -90,20 +239,11 @@
           <div id="questionList">
               <ul id="itemList">
                   <li class="item">Test1</li>
-                  <li class="item">Test2</li>
-                  <li class="item">Test3</li>
-                  <li class="item">Test4</li>
-                  <li class="item">Test5</li>
-                  <li class="item">Test6</li>
-                  <li class="item">Test7</li>
-                  <li class="item">Test8</li>
-                  <li class="item">Test9</li>
-                  <li class="item">Test10</li>
               </ul>
           </div>
       </div>
       <div id="question-view" class="container">
-          <button class="top-button" onclick="showAnwerQuestionForm()">Answer the question</button>
+          <button class="top-button" onclick="showAnswerQuestionForm()">Answer question</button>
           <div id="actualQuestion">
               <ul id="responses">
                   <li id="question"><h4>Question?</h4>
@@ -112,24 +252,17 @@
                       </p>
                   </li>
                   <li class="item">Response1</li>
-                  <li class="item">Response2</li>
-                  <li class="item">Response3</li>
-                  <li class="item">Response4</li>
-                  <li class="item">Response5</li>
-                  <li class="item">Response6</li>
-                  <li class="item">Response7</li>
-                  <li class="item">Response8</li>
-                  <li class="item">Response9</li>
               </ul>
           </div>
       </div>
-      <div id="ask-question" class="question">
+      <div id="ask-question" class="container">
           <div id="ask-question-body">
-              <span>Question title: </span>
+              <span style="margin-left: 5px">Title: </span>
               <input type="text" id="question-title">
               <br>
-              <span>Description: </span>
-              <textarea rows="4" cols="40" type="text" id="question-text">
+              <span style="display: block; margin-top: 5px; margin-left: 5px">Description: </span>
+              <textarea rows="11" cols="36" type="text" id="question-text"></textarea>
+              <button>Preview</button><button id="second" onclick="postQuestion()">Post question</button>
           </div>
       </div>
   </div>
