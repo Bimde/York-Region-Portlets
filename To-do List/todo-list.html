@@ -1,9 +1,7 @@
 <body>
 	<style>
 		.box-design {
-			border-color: gray;
-			border-width: 5px;
-			border-style: outset;
+			border: 5px outset gray;
 			padding: 5px;
 			height: 95%;
 			width: 95%;
@@ -23,6 +21,8 @@
 	</div>
 	
 	<script>
+		const TODO_LIST_CACHE_NAME = 'list-storage-myPortal';
+
 		function addElement(text, num) {
 			if (text.trim() != "") {
 				var textNode = document.createTextNode(text);
@@ -41,24 +41,33 @@
 				var li = document.createElement("LI");
 				li.appendChild(textNode);
 				document.getElementById("ulList").appendChild(li);
-				if(localStorage.getItem('list-storage') !== null) {
-					var temp = JSON.parse(localStorage['list-storage']);
+				if(localStorage.getItem(TODO_LIST_CACHE_NAME) !== null) {
+					var temp = JSON.parse(localStorage[TODO_LIST_CACHE_NAME]);
 					temp.myData.splice(temp.myData.length, 0, text);
-					localStorage.setItem('list-storage', JSON.stringify(temp));
+					localStorage.setItem(TODO_LIST_CACHE_NAME, JSON.stringify(temp));
 					li.setAttribute("index", ((temp.myData.length-1)+""));
 				}
 				else {
 					var data = {"myData":[text]};
-					localStorage.setItem('list-storage', JSON.stringify(data));
+					localStorage.setItem(TODO_LIST_CACHE_NAME, JSON.stringify(data));
 				}
 			}
-			console.log(JSON.parse(localStorage.getItem('list-storage')));
+			console.log(JSON.parse(localStorage.getItem(TODO_LIST_CACHE_NAME)));
 		}
 
 		function removeFromList(index) {
-			var obj = JSON.parse(localStorage['list-storage']);
+			var obj = JSON.parse(localStorage[TODO_LIST_CACHE_NAME]);
 			obj.myData.splice(index, 1);
-			localStorage.setItem('list-storage', JSON.stringify(obj));
+			localStorage.setItem(TODO_LIST_CACHE_NAME, JSON.stringify(obj));
+		}
+
+		function loadData() {
+			if(localStorage.getItem(TODO_LIST_CACHE_NAME) !== null){
+				var obj = JSON.parse(localStorage.getItem(TODO_LIST_CACHE_NAME));
+				for(var i = 0; i < obj.myData.length; i++) {
+					addElement(obj.myData[i], i);
+				}
+			}
 		}
 
 		$("#ulList").on('click', 'li', function() {
@@ -73,13 +82,6 @@
             }
         })
 
-		$(document).ready(function() {
-			if(localStorage.getItem('list-storage') !== null){
-				var obj = JSON.parse(localStorage.getItem('list-storage'));
-				for(var i = 0; i < obj.myData.length; i++) {
-					addElement(obj.myData[i], i);
-				}
-			}
-		});
+		onload = loadData;
 	</script>
 </body>

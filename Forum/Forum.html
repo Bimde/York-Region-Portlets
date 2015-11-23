@@ -104,10 +104,9 @@
       var ASK_QUESTION = "ask-question";
 
       function loadData() {
-          __SPNS__data = localStorage.getItem("forum-portlet-cache-testing");
+          __SPNS__data = localStorage.getItem("forum-portlet-cache-temp");
           if(__SPNS__data !== null) {
               __SPNS__data = JSON.parse(__SPNS__data);
-              console.log(__SPNS__data);
           } else {
               __SPNS__data = {"questions":[]};
           }
@@ -138,11 +137,18 @@
           }
       }
 
+      /**
+       * Adds the data to the local questions array and saves the
+       * data to the cache using 'JSON.stringify()'
+       */
       function writeToCache(title, text) {
           __SPNS__data.questions[__SPNS__data.questions.length] = {"title":title, "text":text, "responses":[]};
           localStorage.setItem("forum-portlet-cache-testing", JSON.stringify(__SPNS__data));
       }
 
+      /**
+       * Loads the question and associated details into the 'question-view' panel
+       */
       function addToList(title, text) {
           var li = document.createElement("LI");
           var header = document.createElement("H3");
@@ -157,7 +163,7 @@
           li.appendChild(header);
           li.appendChild(content);
           li.setAttribute("class", "item");
-          li.setAttribute("id", "questionNumber"+__SPNS__data.questions.length);
+          li.setAttribute("id", "questionNumber" + __SPNS__data.questions.length);
 
           var list = document.getElementById("itemList");
           list.appendChild(li);
@@ -172,10 +178,14 @@
           switchPanel(ASK_QUESTION);
       }
 
+      /**
+       * *** Called from the 'Post question' button ***
+       * Verifies the question input data and adds in the storage if requirements are met
+       * Forces the question to have a title, but only gives warning if body is missing
+       */
       function postQuestion() {
           var title = document.getElementById("question-title").value;
           var text = document.getElementById("question-text").value;
-          console.log(title + " : " + text);
           title = title.trim();
           text = text.trim();
 
@@ -183,17 +193,23 @@
               alert("Enter a question title!");
               return;
           } else if (text === "" || text === null) {
-              var conf = confirm("You are asking a question without any text in the body, are you sure you want to proceed?");
-              if(conf != true) {
+              var verify = confirm("You are asking a question " +
+                      "without any text in the body, are you sure you want to proceed?");
+              if(verify != true) {
                   return;
               }
           }
 
           addToList(title, text);
           switchPanel(QUESTION_VIEW);
-          loadQuestion(__SPNS__data.questions.length-1);
+          loadQuestion(__SPNS__data.questions.length - 1);
       }
 
+      /**
+       * Loads an individual question onto the display
+       * @param num integer index in the 'questions' array where the
+       *    question is stored
+       */
       function loadQuestion(num) {
           var arrayData = __SPNS__data.questions[num];
           var list = document.getElementById("responses");
@@ -234,8 +250,6 @@
       }
 
       function switchPanel(panelName) {
-          console.log(panelName);
-
           var panel = document.getElementById(panelName);
           panel.style.display = "block";
 
@@ -263,7 +277,7 @@
           <button class="top-button" onclick="showAskQuestionForm()">Ask a question</button>
           <div id="questionList">
               <ul id="itemList">
-                  <li class="item">Test1</li>
+                  <li class="item" onclick="">Test1</li>
               </ul>
           </div>
       </div>
