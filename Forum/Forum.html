@@ -98,24 +98,28 @@
       // Using '__SPNS__' as a variable prefix / postfix results in the 'Web Content Manager
       // ScriptPortletNamespace plug-in' on WebShere automatically replacing in with a portlet
       // specific namespace, allowing for the variable names in each portlet to not interfere
-      var __SPNS__data;
+      var forumPortletCacheData;
+      var FORUM_PORTLET_CACHE_LOCATION = "forum-portlet-cache-testing";
       var HOME = "home";
       var QUESTION_VIEW = "question-view";
       var ASK_QUESTION = "ask-question";
 
       function loadData() {
-          __SPNS__data = localStorage.getItem("forum-portlet-cache-temp");
-          if(__SPNS__data !== null) {
-              __SPNS__data = JSON.parse(__SPNS__data);
+          forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+          if(forumPortletCacheData) {
+              forumPortletCacheData = JSON.parse(forumPortletCacheData);
           } else {
-              __SPNS__data = {"questions":[]};
+              forumPortletCacheData = {"questions":[]};
           }
           loadHomePanel();
           switchPanel(HOME);
       }
 
+      /**
+       * Loads up the main panel with all of the currently active questions
+       */
       function loadHomePanel() {
-          var array = __SPNS__data.questions;
+          var array = forumPortletCacheData.questions;
           for(var i = 0; i < array.length; i ++) {
               var li = document.createElement("LI");
               var header = document.createElement("H4");
@@ -131,6 +135,8 @@
               li.appendChild(content);
               li.setAttribute("class", "item");
               li.setAttribute("id", "questionNumber"+i);
+              li.setAttribute("index", i+"");
+              li.setAttribute("oncontextmenu", "removeQuestion(this)")
 
               var list = document.getElementById("itemList");
               list.appendChild(li);
@@ -142,8 +148,17 @@
        * data to the cache using 'JSON.stringify()'
        */
       function writeToCache(title, text) {
-          __SPNS__data.questions[__SPNS__data.questions.length] = {"title":title, "text":text, "responses":[]};
-          localStorage.setItem("forum-portlet-cache-testing", JSON.stringify(__SPNS__data));
+          forumPortletCacheData.questions[forumPortletCacheData.questions.length] = {"title":title, "text":text, "responses":[]};
+          saveCurrentState();
+      }
+
+      function deleteFromCache(index) {
+          forumPortletCacheData.questions.splice(index, 1);
+          saveCurrentState();
+      }
+
+      function saveCurrentState() {
+          localStorage.setItem(FORUM_PORTLET_CACHE_LOCATION, JSON.stringify(forumPortletCacheData));
       }
 
       /**
@@ -163,7 +178,8 @@
           li.appendChild(header);
           li.appendChild(content);
           li.setAttribute("class", "item");
-          li.setAttribute("id", "questionNumber" + __SPNS__data.questions.length);
+          li.setAttribute("index", forumPortletCacheData.questions.length+"");
+          li.setAttribute("id", "questionNumber" + forumPortletCacheData.questions.length);
 
           var list = document.getElementById("itemList");
           list.appendChild(li);
@@ -202,7 +218,12 @@
 
           addToList(title, text);
           switchPanel(QUESTION_VIEW);
-          loadQuestion(__SPNS__data.questions.length - 1);
+          loadQuestion(forumPortletCacheData.questions.length - 1);
+      }
+
+      function removeQuestion(li) {
+          deleteFromCache(li.getAttribute(""));
+          li.remove();
       }
 
       /**
@@ -211,7 +232,7 @@
        *    question is stored
        */
       function loadQuestion(num) {
-          var arrayData = __SPNS__data.questions[num];
+          var arrayData = forumPortletCacheData.questions[num];
           var list = document.getElementById("responses");
           while(list.firstChild) {
               list.removeChild(list.firstChild);
@@ -277,7 +298,7 @@
           <button class="top-button" onclick="showAskQuestionForm()">Ask a question</button>
           <div id="questionList">
               <ul id="itemList">
-                  <li class="item" onclick="">Test1</li>
+                  <li class="item" onclick="" oncontextmenu="removeQuestion(this)">Test1</li>
               </ul>
           </div>
       </div>
