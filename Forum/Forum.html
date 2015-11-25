@@ -98,19 +98,12 @@
       // Using '__SPNS__' as a variable prefix / postfix results in the 'Web Content Manager
       // ScriptPortletNamespace plug-in' on WebShere automatically replacing in with a portlet
       // specific namespace, allowing for the variable names in each portlet to not interfere
-      var forumPortletCacheData;
       var FORUM_PORTLET_CACHE_LOCATION = "forum-portlet-cache-testing";
       var HOME = "home";
       var QUESTION_VIEW = "question-view";
       var ASK_QUESTION = "ask-question";
 
-      function loadData() {
-          forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
-          if(forumPortletCacheData) {
-              forumPortletCacheData = JSON.parse(forumPortletCacheData);
-          } else {
-              forumPortletCacheData = {"questions":[]};
-          }
+      function loadForumQuestionsData() {
           loadHomePanel();
           switchPanel(HOME);
       }
@@ -119,6 +112,13 @@
        * Loads up the main panel with all of the currently active questions
        */
       function loadHomePanel() {
+          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+          if(forumPortletCacheData) {
+              forumPortletCacheData = JSON.parse(forumPortletCacheData);
+          } else {
+              forumPortletCacheData = {"questions":[]};
+              saveCurrentState(forumPortletCacheData);
+          }
           var array = forumPortletCacheData.questions;
           for(var i = 0; i < array.length; i ++) {
               var li = document.createElement("LI");
@@ -148,23 +148,35 @@
        * data to the cache using 'JSON.stringify()'
        */
       function writeToCache(title, text) {
+          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+          if(forumPortletCacheData) {
+              forumPortletCacheData = JSON.parse(forumPortletCacheData);
+          } else {
+              forumPortletCacheData = {"questions":[]};
+          }
           forumPortletCacheData.questions[forumPortletCacheData.questions.length] = {"title":title, "text":text, "responses":[]};
-          saveCurrentState();
+          saveCurrentState(forumPortletCacheData);
       }
 
       function deleteFromCache(index) {
+          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+          if(forumPortletCacheData) {
+              forumPortletCacheData = JSON.parse(forumPortletCacheData);
+          } else {
+              forumPortletCacheData = {"questions":[]};
+          }
           forumPortletCacheData.questions.splice(index, 1);
-          saveCurrentState();
+          saveCurrentState(forumPortletCacheData);
       }
 
-      function saveCurrentState() {
+      function saveCurrentState(forumPortletCacheData) {
           localStorage.setItem(FORUM_PORTLET_CACHE_LOCATION, JSON.stringify(forumPortletCacheData));
       }
 
       /**
        * Loads the question and associated details into the 'question-view' panel
        */
-      function addToList(title, text) {
+      function addToQuestionList(title, text, forumPortletCacheData) {
           var li = document.createElement("LI");
           var header = document.createElement("H3");
           var content = document.createElement("P");
@@ -200,6 +212,13 @@
        * Forces the question to have a title, but only gives warning if body is missing
        */
       function postQuestion() {
+          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+          if(forumPortletCacheData) {
+              forumPortletCacheData = JSON.parse(forumPortletCacheData);
+          } else {
+              forumPortletCacheData = {"questions":[]};
+          }
+
           var title = document.getElementById("question-title").value;
           var text = document.getElementById("question-text").value;
           title = title.trim();
@@ -216,13 +235,13 @@
               }
           }
 
-          addToList(title, text);
+          addToQuestionList(title, text, forumPortletCacheData);
           switchPanel(QUESTION_VIEW);
-          loadQuestion(forumPortletCacheData.questions.length - 1);
+          loadQuestion(forumPortletCacheData.questions.length);
       }
 
       function removeQuestion(li) {
-          deleteFromCache(li.getAttribute(""));
+          deleteFromCache(li.getAttribute("index"));
           li.remove();
       }
 
@@ -232,6 +251,12 @@
        *    question is stored
        */
       function loadQuestion(num) {
+          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+          if(forumPortletCacheData) {
+              forumPortletCacheData = JSON.parse(forumPortletCacheData);
+          } else {
+              forumPortletCacheData = {"questions":[]};
+          }
           var arrayData = forumPortletCacheData.questions[num];
           var list = document.getElementById("responses");
           while(list.firstChild) {
@@ -290,7 +315,7 @@
           }
       }
 
-      window.onload = loadData;
+      window.onload = loadForumQuestionsData;
   </script>
 
   <div id="forum">
@@ -298,7 +323,6 @@
           <button class="top-button" onclick="showAskQuestionForm()">Ask a question</button>
           <div id="questionList">
               <ul id="itemList">
-                  <li class="item" onclick="" oncontextmenu="removeQuestion(this)">Test1</li>
               </ul>
           </div>
       </div>

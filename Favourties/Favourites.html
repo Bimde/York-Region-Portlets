@@ -1,18 +1,18 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <style>
-    div#favourties ul#favsBar {
+    div#favouritesBarContentPane ul#favouritesBarBar {
         list-style-type: none;
         padding: 0px;
     }
 
-    div#favourties ul#favsBar li.item {
+    div#favouritesBarContentPane ul#favouritesBarBar li.item {
         display:inline-block;
         margin: 0px;
         padding: 0px;
     }
 
-    div#favourties ul#favsBar li.item div.item {
+    div#favouritesBarContentPane ul#favouritesBarBar li.item div.item {
         display:inline-block;
         background-color: lightgrey;
         margin-left: 5px;
@@ -25,15 +25,15 @@
         height: 20px;
     }
 
-    div#favourties ul#favsBar li.item div.item:hover {
+    div#favouritesBarContentPane ul#favouritesBarBar li.item div.item:hover {
         background-color: gray;
     }
 
-    div#favourties ul#favsBar li.item div.item:active {
+    div#favouritesBarContentPane ul#favouritesBarBar li.item div.item:active {
         background-color: dimgray;
     }
 
-    div#favourties div#inputForm div span.inputLabel {
+    div#favouritesBarContentPane div#favouritesBarInputForm div span.inputLabel {
         display: inline-block;
         width: 60px;
         text-align: center;
@@ -44,7 +44,7 @@
         margin-bottom: 5px;
     }
 
-    div#favourties div#inputForm div input.input102 {
+    div#favouritesBarContentPane div#favouritesBarInputForm div input.input102 {
         display: inline-block;
         width: 200px;
         margin-top: 5px;
@@ -52,7 +52,7 @@
         float:right;
     }
 
-    div#favourties div#inputForm div.button {
+    div#favouritesBarContentPane div#favouritesBarInputForm div.button {
         display: inline-block;
         width: 125px;
         padding: 4px;
@@ -65,20 +65,20 @@
         float: right;
     }
 
-    div#favourties div#inputForm div#small.button {
+    div#favouritesBarContentPane div#favouritesBarInputForm div#smallerButton.button {
         width: 60px;
         float: left;
     }
 
-    div#favourties div#inputForm div.button:hover {
+    div#favouritesBarContentPane div#favouritesBarInputForm div.button:hover {
         background-color: gray;
     }
 
-    div#favourties div#inputForm div.button:active{
+    div#favouritesBarContentPane div#favouritesBarInputForm div.button:active{
         background-color: dimgrey;
     }
 
-    div#favourties div#inputForm {
+    div#favouritesBarContentPane div#favouritesBarInputForm {
         display: none;
         background-color: lightgrey;
         padding: 10px;
@@ -89,18 +89,18 @@
 </style>
 
 <script>
-    var favouritesBarCurrentData;
-    const FAVOURITES_BAR_CACHE_NAME = 'favourites-storage-myPortal';
+    var favourtiesBarPreLoadedCachedData;
+    const FAVOURITES_BAR_CACHE_NAME = 'favourites-myPortal-cache';
 
     // USE localStorage['varname'] to save favourites and load all values into array for faster access
     function openAddMenu() {
-        document.getElementById("inputForm").style.display = "block";
-        document.getElementById("favsBar").style.display = "none";
+        document.getElementById("favouritesBarInputForm").style.display = "block";
+        document.getElementById("favouritesBarBar").style.display = "none";
     }
 
     function closeAddFavouritesMenu() {
-        document.getElementById("inputForm").style.display = "none";
-        document.getElementById("favsBar").style.display = "block";
+        document.getElementById("favouritesBarInputForm").style.display = "none";
+        document.getElementById("favouritesBarBar").style.display = "block";
     }
 
     function clickedFavourite(item) {
@@ -116,26 +116,26 @@
         if (localStorage && localStorage.getItem(FAVOURITES_BAR_CACHE_NAME)) {
             var storage = JSON.parse(localStorage.getItem(FAVOURITES_BAR_CACHE_NAME));
             storage.favourites.push({"name":name, "link":link});
-            favouritesBarCurrentData = storage;
+            favourtiesBarPreLoadedCachedData = storage;
             localStorage.setItem(FAVOURITES_BAR_CACHE_NAME, JSON.stringify(storage));
         }
         else {
             var data = {"favourites":[{"name":name, "link":link}]};
-            favouritesBarCurrentData = data;
+            favourtiesBarPreLoadedCachedData = data;
             localStorage.setItem(FAVOURITES_BAR_CACHE_NAME, JSON.stringify(data));
         }
         console.log(JSON.parse(localStorage.getItem(FAVOURITES_BAR_CACHE_NAME)));
     }
 
-    function loadData() {
+    function loadFavouritesBarData() {
         if (localStorage && localStorage.getItem(FAVOURITES_BAR_CACHE_NAME)) {
             var storage = JSON.parse(localStorage.getItem(FAVOURITES_BAR_CACHE_NAME));
             for(var i = 0; i < storage.favourites.length; i++) {
                 internalAddToFavourites(storage.favourites[i].name, storage.favourites[i].link, i);
             }
-            favouritesBarCurrentData = storage;
+            favourtiesBarPreLoadedCachedData = storage;
         } else {
-            favouritesBarCurrentData = {"favourites":[]};
+            favourtiesBarPreLoadedCachedData = {"favourites":[]};
         }
     }
 
@@ -149,7 +149,7 @@
             if(text == null || text == "") {
                 text = link;
             }
-            var index = favouritesBarCurrentData.favourites.length;
+            var index = favourtiesBarPreLoadedCachedData.favourites.length;
             internalAddToFavourites(text, link, index);
             saveToFile(text, link);
             closeAddFavouritesMenu();
@@ -157,7 +157,7 @@
     }
 
     function internalAddToFavourites(name, link, index) {
-        var list = document.getElementById("favsBar");
+        var list = document.getElementById("favouritesBarBar");
         var li = document.createElement("LI");
         var div = document.createElement("DIV");
         var textNode = document.createTextNode(name);
@@ -173,22 +173,20 @@
     }
 
     function removeFromStorage(index) {
-        favouritesBarCurrentData.favourites.splice(index, 1);
-        localStorage.setItem(FAVOURITES_BAR_CACHE_NAME, JSON.stringify(favouritesBarCurrentData));
+        favourtiesBarPreLoadedCachedData.favourites.splice(index, 1);
+        localStorage.setItem(FAVOURITES_BAR_CACHE_NAME, JSON.stringify(favourtiesBarPreLoadedCachedData));
     }
 
-    $(document).ready(function() {
-        loadData();
-    });
+    window.onload = loadFavouritesBarData;
 
 </script>
 
-<div id="favourties">
-    <ul id="favsBar"><li class="item"><div class="item" onclick="openAddMenu()">New bookmark</div></li></ul>
-    <div id="inputForm">
+<div id="favouritesBarContentPane">
+    <ul id="favouritesBarBar"><li class="item"><div class="item" onclick="openAddMenu()">New bookmark</div></li></ul>
+    <div id="favouritesBarInputForm">
         <div><span class="inputLabel">Link</span> <input id = "addToListLink" class="input102" placeholder="http://york.ca"></div>
         <div><span class="inputLabel">Name</span> <input id = "addToListName" class="input102" placeholder="York Region"></div>
-        <div class="button" id="small" onclick="closeAddFavouritesMenu()">Cancel</div>
+        <div class="button" id="smallerButton" onclick="closeAddFavouritesMenu()">Cancel</div>
         <div class="button" onclick="addToFavourites()">Add to favourties</div>
     </div>
 </div>
