@@ -7,7 +7,7 @@
 			width: 95%;
 			margin: 0px;
 		}
-		#ulList {
+		#__SPNS__ulList {
 			list-style-image: url('http://i1067.photobucket.com/albums/u432/Bimde/Unchecked%20Box_zps8h2s0kkh.png');
 		}
 	</style>
@@ -15,73 +15,106 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 	<div class = "box-design">
-		<input id = "input" type= "text" placeholder="Remember to do something">
+		<input id = "__SPNS__input" type= "text" placeholder="Remember to do something">
 		<button onclick="addToList()">Add to list</button>
-		<ul id="ulList"></ul>
+		<ul id="__SPNS__ulList"></ul>
 	</div>
-	
 	<script>
-		const TODO_LIST_CACHE_NAME = 'list-storage-myPortal';
+        var __SPNS__myspHelper = [Plugin:Portlet key="namespace" compute="once"]spHelper;
 
-		function addElement(text, num) {
-			if (text.trim() != "") {
-				var textNode = document.createTextNode(text);
-				var li = document.createElement("LI");
-				li.appendChild(textNode);
-				document.getElementById("ulList").appendChild(li);
-				li.setAttribute("index", (num+""));
-			}
-		}
+        function addElement(text, num) {
+            if (text.trim() != "") {
+                var textNode = document.createTextNode(text);
+                var li = document.createElement("LI");
+                li.appendChild(textNode);
+                document.getElementById("ulList").appendChild(li);
+                li.setAttribute("index", (num+""));
+            }
+        }
 
-		function addToList() {
-			var text = document.getElementById("input").value;
-			document.getElementById("input").value = null;
-			if (text.trim() != "") {
-				var textNode = document.createTextNode(text);
-				var li = document.createElement("LI");
-				li.appendChild(textNode);
-				document.getElementById("ulList").appendChild(li);
-				if(localStorage.getItem(TODO_LIST_CACHE_NAME) !== null) {
-					var temp = JSON.parse(localStorage[TODO_LIST_CACHE_NAME]);
-					temp.myData.splice(temp.myData.length, 0, text);
-					localStorage.setItem(TODO_LIST_CACHE_NAME, JSON.stringify(temp));
-					li.setAttribute("index", ((temp.myData.length-1)+""));
-				}
-				else {
-					var data = {"myData":[text]};
-					localStorage.setItem(TODO_LIST_CACHE_NAME, JSON.stringify(data));
-				}
-			}
-			console.log(JSON.parse(localStorage.getItem(TODO_LIST_CACHE_NAME)));
-		}
+        function setToDoListPortletPreferences(obj) {
+            if(obj === null)
+                __SPNS__myspHelper.setPortletPreferences(null);
+            __SPNS__myspHelper.setPortletPreferences(JSON.stringify(obj));
+            __SPNS__myspHelper.getPortletPreferences().then(function(prefData){
+                console.log(JSON.parse(prefData));
+            }, function(error){console.log("error");});
+        }
 
-		function removeFromList(index) {
-			var obj = JSON.parse(localStorage[TODO_LIST_CACHE_NAME]);
-			obj.myData.splice(index, 1);
-			localStorage.setItem(TODO_LIST_CACHE_NAME, JSON.stringify(obj));
-		}
+        function addToList() {
+            var text = document.getElementById("input").value;
+            document.getElementById("__SPNS__input").value = null;
+            if (text.trim() != "") {
+                var textNode = document.createTextNode(text);
+                var li = document.createElement("LI");
+                li.appendChild(textNode);
+                document.getElementById("ulList").appendChild(li);
+                var data = {"myData":[text]};
+                __SPNS__myspHelper.getPortletPreferences().then(function(prefData){
+                    if(prefData !== null) {
+                        var obj = JSON.parse(prefData);
+                        if (obj.myData !== null) {
+                            li.setAttribute("index", ((obj.myData.length) + ""));
+                            obj.myData.splice(obj.myData.length, 0, text);
+                            setToDoListPortletPreferences(obj);
+                        }
+                        else {
+                            setToDoListPortletPreferences(data);
+                        }
+                    }
+                    else {
+                        setToDoListPortletPreferences(data);
+                    }
+                }, function(error){return;});
+            }
+        }
 
-		function loadData() {
-			if(localStorage.getItem(TODO_LIST_CACHE_NAME) !== null){
-				var obj = JSON.parse(localStorage.getItem(TODO_LIST_CACHE_NAME));
-				for(var i = 0; i < obj.myData.length; i++) {
-					addElement(obj.myData[i], i);
-				}
-			}
-		}
+        function removeFromList(index) {
+            __SPNS__myspHelper.getPortletPreferences().then(function(prefData){
+                var obj = JSON.parse(prefData);
+                obj.myData.splice(index, 1);
+                setToDoListPortletPreferences(obj);
+            }, function(error){return;});
+        }
 
-		$("#ulList").on('click', 'li', function() {
-			var temp = $(this).attr("index");
-			removeFromList(temp);
-			$(this).remove();
-		});
+        function loadToDoListPortletPreferenceData() {
+            __SPNS__myspHelper.getPortletPreferences().then(function(prefData) {
+                var temp = {"myData":[]};
+                if(prefData !== null) {
+                    obj = JSON.parse(prefData);
+                    console.log(obj);
+                    if (obj.myData !== null) {
+                        for (var i = 0; i < obj.myData.length; i++) {
+                            addElement(obj.myData[i], i);
+                        }
+                    }
+                    else {
+                        setToDoListPortletPreferences(temp);
+                    }
+                }
+                else {
+                    setToDoListPortletPreferences(temp);
+                }
+            }, function(error) {
+                return;
+            });
+        };
 
-        $("#input").keydown(function(event){
+        $("#__SPNS__ulList").on('click', 'li', function() {
+            var temp = $(this).attr("index");
+            removeFromList(temp);
+            $(this).remove();
+        });
+
+        $("#__SPNS__input").keydown(function(event){
             if(event.which === 13) {
                 addToList();
             }
         })
 
-		onload = loadData;
+        $(document).ready(function() {
+            console.log(__SPNS__myspHelper.userCn);
+            loadToDoListPortletPreferenceData();
+        });
 	</script>
 </body>
