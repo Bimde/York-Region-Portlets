@@ -1,18 +1,18 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <style>
-    div#favouritesBarContentPane ul#favouritesBarBar {
+    div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar {
         list-style-type: none;
         padding: 0px;
     }
 
-    div#favouritesBarContentPane ul#favouritesBarBar li.item {
+    div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar li.__SPNS__item {
         display:inline-block;
         margin: 0px;
         padding: 0px;
     }
 
-    div#favouritesBarContentPane ul#favouritesBarBar li.item div.item {
+    div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar li.__SPNS__item div.__SPNS__item {
         display:inline-block;
         background-color: lightgrey;
         margin-left: 5px;
@@ -25,15 +25,15 @@
         height: 20px;
     }
 
-    div#favouritesBarContentPane ul#favouritesBarBar li.item div.item:hover {
+    div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar li.__SPNS__item div.__SPNS__item:hover {
         background-color: gray;
     }
 
-    div#favouritesBarContentPane ul#favouritesBarBar li.item div.item:active {
+    div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar li.__SPNS__item div.__SPNS__item:active {
         background-color: dimgray;
     }
 
-    div#favouritesBarContentPane div#favouritesBarInputForm div span.inputLabel {
+    div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div span.inputLabel {
         display: inline-block;
         width: 60px;
         text-align: center;
@@ -44,7 +44,7 @@
         margin-bottom: 5px;
     }
 
-    div#favouritesBarContentPane div#favouritesBarInputForm div input.input102 {
+    div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div input.__SPNS__input102 {
         display: inline-block;
         width: 200px;
         margin-top: 5px;
@@ -52,7 +52,7 @@
         float:right;
     }
 
-    div#favouritesBarContentPane div#favouritesBarInputForm div.button {
+    div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div.__SPNS__button {
         display: inline-block;
         width: 125px;
         padding: 4px;
@@ -65,20 +65,20 @@
         float: right;
     }
 
-    div#favouritesBarContentPane div#favouritesBarInputForm div#smallerButton.button {
+    div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div#smallerButton.__SPNS__button {
         width: 60px;
         float: left;
     }
 
-    div#favouritesBarContentPane div#favouritesBarInputForm div.button:hover {
+    div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div.__SPNS__button:hover {
         background-color: gray;
     }
 
-    div#favouritesBarContentPane div#favouritesBarInputForm div.button:active{
+    div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div.__SPNS__button:active{
         background-color: dimgrey;
     }
 
-    div#favouritesBarContentPane div#favouritesBarInputForm {
+    div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm {
         display: none;
         background-color: lightgrey;
         padding: 10px;
@@ -89,57 +89,57 @@
 </style>
 
 <script>
-    var favourtiesBarPreLoadedCachedData;
-    const FAVOURITES_BAR_CACHE_NAME = 'favourites-myPortal-cache';
+    var __SPNS__favourtiesBarPreLoadedCachedData;
+    const __SPNS__FAVOURITES_BAR_CACHE_NAME = 'favourites-myPortal-cache';
 
     // USE localStorage['varname'] to save favourites and load all values into array for faster access
-    function openAddMenu() {
-        document.getElementById("favouritesBarInputForm").style.display = "block";
-        document.getElementById("favouritesBarBar").style.display = "none";
+    function __SPNS__openAddMenu() {
+        document.getElementById("__SPNS__favouritesBarInputForm").style.display = "block";
+        document.getElementById("__SPNS__favouritesBarBar").style.display = "none";
     }
 
-    function closeAddFavouritesMenu() {
-        document.getElementById("favouritesBarInputForm").style.display = "none";
-        document.getElementById("favouritesBarBar").style.display = "block";
+    function __SPNS__closeAddFavouritesMenu() {
+        document.getElementById("__SPNS__favouritesBarInputForm").style.display = "none";
+        document.getElementById("__SPNS__favouritesBarBar").style.display = "block";
     }
 
-    function clickedFavourite(item) {
-        window.open(item.getAttribute("href"),'_blank');
+    function __SPNS__clickedFavourite(__SPNS__item) {
+        window.open(__SPNS__item.getAttribute("href"),'_blank');
     }
 
-    function removeFromBookmarks(item) {
-        removeFromStorage(item.getAttribute("index"));
-        item.remove();
+    function __SPNS__removeFromBookmarks(__SPNS__item) {
+        __SPNS__removeFromStorage(__SPNS__item.getAttribute("index"));
+        __SPNS__item.remove();
     }
 
-    function saveToFile(name, link) {
-        if (localStorage && localStorage.getItem(FAVOURITES_BAR_CACHE_NAME)) {
-            var storage = JSON.parse(localStorage.getItem(FAVOURITES_BAR_CACHE_NAME));
+    function __SPNS__saveToFile(name, link) {
+        if (localStorage && localStorage.getItem(__SPNS__FAVOURITES_BAR_CACHE_NAME)) {
+            var storage = JSON.parse(localStorage.getItem(__SPNS__FAVOURITES_BAR_CACHE_NAME));
             storage.favourites.push({"name":name, "link":link});
-            favourtiesBarPreLoadedCachedData = storage;
-            localStorage.setItem(FAVOURITES_BAR_CACHE_NAME, JSON.stringify(storage));
+            __SPNS__favourtiesBarPreLoadedCachedData = storage;
+            localStorage.setItem(__SPNS__FAVOURITES_BAR_CACHE_NAME, JSON.stringify(storage));
         }
         else {
             var data = {"favourites":[{"name":name, "link":link}]};
-            favourtiesBarPreLoadedCachedData = data;
-            localStorage.setItem(FAVOURITES_BAR_CACHE_NAME, JSON.stringify(data));
+            __SPNS__favourtiesBarPreLoadedCachedData = data;
+            localStorage.setItem(__SPNS__FAVOURITES_BAR_CACHE_NAME, JSON.stringify(data));
         }
-        console.log(JSON.parse(localStorage.getItem(FAVOURITES_BAR_CACHE_NAME)));
+        console.log(JSON.parse(localStorage.getItem(__SPNS__FAVOURITES_BAR_CACHE_NAME)));
     }
 
-    function loadFavouritesBarData() {
-        if (localStorage && localStorage.getItem(FAVOURITES_BAR_CACHE_NAME)) {
-            var storage = JSON.parse(localStorage.getItem(FAVOURITES_BAR_CACHE_NAME));
+    function __SPNS__loadFavouritesBarData() {
+        if (localStorage && localStorage.getItem(__SPNS__FAVOURITES_BAR_CACHE_NAME)) {
+            var storage = JSON.parse(localStorage.getItem(__SPNS__FAVOURITES_BAR_CACHE_NAME));
             for(var i = 0; i < storage.favourites.length; i++) {
-                internalAddToFavourites(storage.favourites[i].name, storage.favourites[i].link, i);
+                __SPNS__internalAddToFavourites(storage.favourites[i].name, storage.favourites[i].link, i);
             }
-            favourtiesBarPreLoadedCachedData = storage;
+            __SPNS__favourtiesBarPreLoadedCachedData = storage;
         } else {
-            favourtiesBarPreLoadedCachedData = {"favourites":[]};
+            __SPNS__favourtiesBarPreLoadedCachedData = {"favourites":[]};
         }
     }
 
-    function addToFavourites() {
+    function __SPNS__addToFavourites() {
         var text = document.getElementById("addToListName").value.trim();
         var link = document.getElementById("addToListLink").value.trim();
 
@@ -149,45 +149,45 @@
             if(text == null || text == "") {
                 text = link;
             }
-            var index = favourtiesBarPreLoadedCachedData.favourites.length;
-            internalAddToFavourites(text, link, index);
-            saveToFile(text, link);
-            closeAddFavouritesMenu();
+            var index = __SPNS__favourtiesBarPreLoadedCachedData.favourites.length;
+            __SPNS__internalAddToFavourites(text, link, index);
+            __SPNS__saveToFile(text, link);
+            __SPNS__closeAddFavouritesMenu();
         }
     }
 
-    function internalAddToFavourites(name, link, index) {
-        var list = document.getElementById("favouritesBarBar");
+    function __SPNS__internalAddToFavourites(name, link, index) {
+        var list = document.getElementById("__SPNS__favouritesBarBar");
         var li = document.createElement("LI");
         var div = document.createElement("DIV");
         var textNode = document.createTextNode(name);
         div.appendChild(textNode);
-        div.setAttribute("class", "item");
+        div.setAttribute("class", "__SPNS__item");
         li.setAttribute("href", link);
-        li.setAttribute("onclick", "clickedFavourite(this)");
-        li.setAttribute("oncontextmenu", "removeFromBookmarks(this)");
+        li.setAttribute("onclick", "__SPNS__clickedFavourite(this)");
+        li.setAttribute("oncontextmenu", "__SPNS__removeFromBookmarks(this)");
         li.appendChild(div);
-        li.setAttribute("class", "item");
+        li.setAttribute("class", "__SPNS__item");
         li.setAttribute("index", index);
         list.appendChild(li);
     }
 
-    function removeFromStorage(index) {
-        favourtiesBarPreLoadedCachedData.favourites.splice(index, 1);
-        localStorage.setItem(FAVOURITES_BAR_CACHE_NAME, JSON.stringify(favourtiesBarPreLoadedCachedData));
+    function __SPNS__removeFromStorage(index) {
+        __SPNS__favourtiesBarPreLoadedCachedData.favourites.splice(index, 1);
+        localStorage.setItem(__SPNS__FAVOURITES_BAR_CACHE_NAME, JSON.stringify(__SPNS__favourtiesBarPreLoadedCachedData));
     }
 
-    window.onload = loadFavouritesBarData;
+    window.onload = __SPNS__loadFavouritesBarData;
 
 </script>
 
-<div id="favouritesBarContentPane">
-    <ul id="favouritesBarBar"><li class="item"><div class="item" onclick="openAddMenu()">New bookmark</div></li></ul>
-    <div id="favouritesBarInputForm">
-        <div><span class="inputLabel">Link</span> <input id = "addToListLink" class="input102" placeholder="http://york.ca"></div>
-        <div><span class="inputLabel">Name</span> <input id = "addToListName" class="input102" placeholder="York Region"></div>
-        <div class="button" id="smallerButton" onclick="closeAddFavouritesMenu()">Cancel</div>
-        <div class="button" onclick="addToFavourites()">Add to favourties</div>
+<div id="__SPNS__favouritesBarContentPane">
+    <ul id="__SPNS__favouritesBarBar"><li class="__SPNS__item"><div class="__SPNS__item" onclick="__SPNS__openAddMenu()">New bookmark</div></li></ul>
+    <div id="__SPNS__favouritesBarInputForm">
+        <div><span class="inputLabel">Link</span> <input id = "addToListLink" class="__SPNS__input102" placeholder="http://york.ca"></div>
+        <div><span class="inputLabel">Name</span> <input id = "addToListName" class="__SPNS__input102" placeholder="York Region"></div>
+        <div class="__SPNS__button" id="smallerButton" onclick="__SPNS__closeAddFavouritesMenu()">Cancel</div>
+        <div class="__SPNS__button" onclick="__SPNS__addToFavourites()">Add to favourties</div>
     </div>
 </div>
 </body>

@@ -1,11 +1,11 @@
 <body>
   <style>
-      #forum * {
+      #__SPNS__forum * {
           padding: 0px;
           margin: 0px;
       }
 
-      #forum {
+      #__SPNS__forum {
           position: relative;
           border: 5px solid dimgrey;
           border-radius: 5px;
@@ -14,110 +14,112 @@
           background-color: gray;
       }
 
-      #forum .container {
+      #__SPNS__forum .__SPNS__container {
           width: 300px;
           height: 250px;
           position: absolute;
           bottom: 0;
       }
 
-      #forum #home.container {
-      }
-
-      #forum #question-view.container {
+      #__SPNS__forum #__SPNS__question-view.__SPNS__container {
           margin: 0px;
           width: 300px;
           padding: 0px;
           overflow: initial;
       }
-      #forum #ask-question.container {
+      #__SPNS__forum #__SPNS__ask-question.__SPNS__container {
           background-color: lightgrey;
           padding: 5px;
           width: 290px;
           overflow: auto;
       }
 
-      #forum #question-view.container #actualQuestion {
+      #__SPNS__forum #__SPNS__question-view.__SPNS__container #__SPNS__actualQuestion {
           overflow: auto;
           height: 215px;
           text-align: left;
       }
 
-      #forum #home.container #questionList {
+      #__SPNS__forum #__SPNS__home.__SPNS__container #__SPNS__questionList {
           overflow: auto;
           height: 215px;
       }
 
-      #forum #home #itemList {
+      #__SPNS__forum #__SPNS__home #__SPNS__itemList {
           list-style-type: none;
       }
 
-      #forum li {
+      #__SPNS__forum li {
           margin: 5px;
           margin-top: 0;
           padding: 5px;
           background-color: lightgrey;
           border-radius: 2px;
       }
-      #forum li#question {
+      #__SPNS__forum li#__SPNS__question {
           background-color: lightblue;
       }
 
-      #forum .top-button {
+      #__SPNS__forum .__SPNS__top-button {
           margin: 5px;
           border-radius: 4px;
           padding: 3px;
       }
 
-      #forum #ask-question.container #ask-question-body textarea {
+      #__SPNS__forum #__SPNS__ask-question.__SPNS__container #__SPNS__ask-question-body textarea {
           margin-top:5px;
           resize: vertical;
           margin-left: 5px;
       }
 
-      #forum #ask-question.container #ask-question-body input {
+      #__SPNS__forum #__SPNS__ask-question.__SPNS__container #__SPNS__ask-question-body input {
           margin-left: 5px;
           margin-right: 0;
           padding: 0;
           width: 225px;
       }
 
-      #forum #ask-question.container #ask-question-body button {
+      #__SPNS__forum #__SPNS__ask-question.__SPNS__container #__SPNS__ask-question-body button {
           padding: 5px;
           margin-top: 5px;
           margin-left: 109px;
           float:left;
       }
-      #forum #ask-question.container #ask-question-body button#second {
+      #__SPNS__forum #__SPNS__ask-question.__SPNS__container #__SPNS__ask-question-body button#__SPNS__second {
           margin-left: 10px;
       }
   </style>
 
   <script>
 
+      var __SPNS__cache = [Plugin:Portlet key="sharedForumPortletKey" compute="once"]spHelper;
+
       // Using '__SPNS__' as a variable prefix / postfix results in the 'Web Content Manager
       // ScriptPortletNamespace plug-in' on WebShere automatically replacing in with a portlet
       // specific namespace, allowing for the variable names in each portlet to not interfere
-      var FORUM_PORTLET_CACHE_LOCATION = "forum-portlet-cache-testing";
-      var HOME = "home";
-      var QUESTION_VIEW = "question-view";
-      var ASK_QUESTION = "ask-question";
+      var __SPNS__HOME = "__SPNS__home";
+      var __SPNS__QUESTION_VIEW = "__SPNS__question-view";
+      var __SPNS__ASK_QUESTION = "__SPNS__ask-question";
 
-      function loadForumQuestionsData() {
-          loadHomePanel();
-          switchPanel(HOME);
+      function __SPNS__loadForumQuestionsData() {
+          __SPNS__loadHomePanel();
+          __SPNS__switchPanel(__SPNS__HOME);
       }
 
       /**
        * Loads up the main panel with all of the currently active questions
        */
-      function loadHomePanel() {
-          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+      function __SPNS__loadHomePanel() {
+          __SPNS__cache.getPortletPreference().then(function(forumPortletCacheData) {
+
+          }, function(error) {
+              console.log("error in loadHomePanel");
+          });
           if(forumPortletCacheData) {
               forumPortletCacheData = JSON.parse(forumPortletCacheData);
           } else {
               forumPortletCacheData = {"questions":[]};
-              saveCurrentState(forumPortletCacheData);
+              __SPNS__saveCurrentState(forumPortletCacheData);
           }
           var array = forumPortletCacheData.questions;
           for(var i = 0; i < array.length; i ++) {
@@ -133,12 +135,12 @@
 
               li.appendChild(header);
               li.appendChild(content);
-              li.setAttribute("class", "item");
-              li.setAttribute("id", "questionNumber"+i);
+              li.setAttribute("class", "__SPNS__item");
+              li.setAttribute("id", "__SPNS__questionNumber"+i);
               li.setAttribute("index", i+"");
-              li.setAttribute("oncontextmenu", "removeQuestion(this)")
+              li.setAttribute("oncontextmenu", "__SPNS__removeQuestion(this)")
 
-              var list = document.getElementById("itemList");
+              var list = document.getElementById("__SPNS__itemList");
               list.appendChild(li);
           }
       }
@@ -147,36 +149,36 @@
        * Adds the data to the local questions array and saves the
        * data to the cache using 'JSON.stringify()'
        */
-      function writeToCache(title, text) {
-          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+      function __SPNS__writeToCache(title, text) {
+          var forumPortletCacheData = localStorage.getItem(__SPNS__FORUM_PORTLET_CACHE_LOCATION);
           if(forumPortletCacheData) {
               forumPortletCacheData = JSON.parse(forumPortletCacheData);
           } else {
               forumPortletCacheData = {"questions":[]};
           }
           forumPortletCacheData.questions[forumPortletCacheData.questions.length] = {"title":title, "text":text, "responses":[]};
-          saveCurrentState(forumPortletCacheData);
+          __SPNS__saveCurrentState(forumPortletCacheData);
       }
 
-      function deleteFromCache(index) {
-          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+      function __SPNS__deleteFromCache(index) {
+          var forumPortletCacheData = localStorage.getItem(__SPNS__FORUM_PORTLET_CACHE_LOCATION);
           if(forumPortletCacheData) {
               forumPortletCacheData = JSON.parse(forumPortletCacheData);
           } else {
               forumPortletCacheData = {"questions":[]};
           }
           forumPortletCacheData.questions.splice(index, 1);
-          saveCurrentState(forumPortletCacheData);
+          __SPNS__saveCurrentState(forumPortletCacheData);
       }
 
-      function saveCurrentState(forumPortletCacheData) {
-          localStorage.setItem(FORUM_PORTLET_CACHE_LOCATION, JSON.stringify(forumPortletCacheData));
+      function __SPNS__saveCurrentState(forumPortletCacheData) {
+          localStorage.setItem(__SPNS__FORUM_PORTLET_CACHE_LOCATION, JSON.stringify(forumPortletCacheData));
       }
 
       /**
        * Loads the question and associated details into the 'question-view' panel
        */
-      function addToQuestionList(title, text, forumPortletCacheData) {
+      function __SPNS__addToQuestionList(title, text, forumPortletCacheData) {
           var li = document.createElement("LI");
           var header = document.createElement("H3");
           var content = document.createElement("P");
@@ -193,17 +195,17 @@
           li.setAttribute("index", forumPortletCacheData.questions.length+"");
           li.setAttribute("id", "questionNumber" + forumPortletCacheData.questions.length);
 
-          var list = document.getElementById("itemList");
+          var list = document.getElementById("__SPNS__itemList");
           list.appendChild(li);
-          writeToCache(title, text);
+          __SPNS__writeToCache(title, text);
       }
 
-      function showAnswerQuestionForm() {
+      function __SPNS__showAnswerQuestionForm() {
           return;
       }
 
-      function showAskQuestionForm() {
-          switchPanel(ASK_QUESTION);
+      function __SPNS__showAskQuestionForm() {
+          __SPNS__switchPanel(__SPNS__ASK_QUESTION);
       }
 
       /**
@@ -211,16 +213,16 @@
        * Verifies the question input data and adds in the storage if requirements are met
        * Forces the question to have a title, but only gives warning if body is missing
        */
-      function postQuestion() {
-          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+      function __SPNS__postQuestion() {
+          var forumPortletCacheData = localStorage.getItem(__SPNS__FORUM_PORTLET_CACHE_LOCATION);
           if(forumPortletCacheData) {
               forumPortletCacheData = JSON.parse(forumPortletCacheData);
           } else {
               forumPortletCacheData = {"questions":[]};
           }
 
-          var title = document.getElementById("question-title").value;
-          var text = document.getElementById("question-text").value;
+          var title = document.getElementById("__SPNS__question-title").value;
+          var text = document.getElementById("__SPNS__question-text").value;
           title = title.trim();
           text = text.trim();
 
@@ -235,13 +237,13 @@
               }
           }
 
-          addToQuestionList(title, text, forumPortletCacheData);
-          switchPanel(QUESTION_VIEW);
-          loadQuestion(forumPortletCacheData.questions.length);
+          __SPNS__addToQuestionList(title, text, forumPortletCacheData);
+          __SPNS__switchPanel(__SPNS__QUESTION_VIEW);
+          __SPNS__loadQuestion(forumPortletCacheData.questions.length);
       }
 
-      function removeQuestion(li) {
-          deleteFromCache(li.getAttribute("index"));
+      function __SPNS__removeQuestion(li) {
+          __SPNS__deleteFromCache(li.getAttribute("index"));
           li.remove();
       }
 
@@ -250,15 +252,15 @@
        * @param num integer index in the 'questions' array where the
        *    question is stored
        */
-      function loadQuestion(num) {
-          var forumPortletCacheData = localStorage.getItem(FORUM_PORTLET_CACHE_LOCATION);
+      function __SPNS__loadQuestion(num) {
+          var forumPortletCacheData = localStorage.getItem(__SPNS__FORUM_PORTLET_CACHE_LOCATION);
           if(forumPortletCacheData) {
               forumPortletCacheData = JSON.parse(forumPortletCacheData);
           } else {
               forumPortletCacheData = {"questions":[]};
           }
           var arrayData = forumPortletCacheData.questions[num];
-          var list = document.getElementById("responses");
+          var list = document.getElementById("__SPNS__responses");
           while(list.firstChild) {
               list.removeChild(list.firstChild);
           }
@@ -275,8 +277,8 @@
 
           li.appendChild(header);
           li.appendChild(content);
-          li.setAttribute("class", "item");
-          li.setAttribute("id", "actual-question");
+          li.setAttribute("class", "__SPNS__item");
+          li.setAttribute("id", "__SPNS__actual-question");
 
           list.appendChild(li);
 
@@ -288,65 +290,59 @@
               content.appendChild(text);
 
               li.appendChild(content);
-              li.setAttribute("class", "item");
-              li.setAttribute("id", "question"+num+"Response"+i);
+              li.setAttribute("class", "__SPNS__item");
+              li.setAttribute("id", "__SPNS__question"+num+"Response"+i);
 
               list.appendChild(li);
           }
       }
 
-      function switchPanel(panelName) {
+      function __SPNS__switchPanel(panelName) {
           var panel = document.getElementById(panelName);
           panel.style.display = "block";
 
           switch(panelName) {
-              case HOME:
-                  document.getElementById(QUESTION_VIEW).style.display = "none";
-                  document.getElementById(ASK_QUESTION).style.display = "none";
+              case __SPNS__HOME:
+                  document.getElementById(__SPNS__QUESTION_VIEW).style.display = "none";
+                  document.getElementById(__SPNS__ASK_QUESTION).style.display = "none";
                   break;
-              case QUESTION_VIEW:
-                  document.getElementById(HOME).style.display = "none";
-                  document.getElementById(ASK_QUESTION).style.display = "none";
+              case __SPNS__QUESTION_VIEW:
+                  document.getElementById(__SPNS__HOME).style.display = "none";
+                  document.getElementById(__SPNS__ASK_QUESTION).style.display = "none";
                   break;
-              case ASK_QUESTION:
-                  document.getElementById(QUESTION_VIEW).style.display = "none";
-                  document.getElementById(HOME).style.display = "none";
+              case __SPNS__ASK_QUESTION:
+                  document.getElementById(__SPNS__QUESTION_VIEW).style.display = "none";
+                  document.getElementById(__SPNS__HOME).style.display = "none";
                   break;
           }
       }
 
-      window.onload = loadForumQuestionsData;
+      window.onload = __SPNS__loadForumQuestionsData;
   </script>
 
-  <div id="forum">
-      <div id="home" class="container">
-          <button class="top-button" onclick="showAskQuestionForm()">Ask a question</button>
-          <div id="questionList">
-              <ul id="itemList">
+  <div id="__SPNS__forum">
+      <div id="__SPNS__home" class="__SPNS__container">
+          <button class="__SPNS__top-button" onclick="__SPNS__showAskQuestionForm()">Ask a question</button>
+          <div id="__SPNS__questionList">
+              <ul id="__SPNS__itemList">
               </ul>
           </div>
       </div>
-      <div id="question-view" class="container">
-          <button class="top-button" onclick="showAnswerQuestionForm()">Answer question</button>
-          <div id="actualQuestion">
+      <div id="__SPNS__question-view" class="__SPNS__container">
+          <button class="__SPNS__top-button" onclick="__SPNS__showAnswerQuestionForm()">Answer question</button>
+          <div id="__SPNS__actualQuestion">
               <ul id="responses">
-                  <li id="question"><h4>Question?</h4>
-                      <p id="questionText">
-                          Question text here.
-                      </p>
-                  </li>
-                  <li class="item">Response1</li>
               </ul>
           </div>
       </div>
-      <div id="ask-question" class="container">
-          <div id="ask-question-body">
+      <div id="__SPNS__ask-question" class="__SPNS__container">
+          <div id="__SPNS__ask-question-body">
               <span style="margin-left: 5px">Title: </span>
-              <input type="text" id="question-title">
+              <input type="text" id="__SPNS__question-title">
               <br>
               <span style="display: block; margin-top: 5px; margin-left: 5px">Description: </span>
-              <textarea rows="11" cols="36" type="text" id="question-text"></textarea>
-              <button>Preview</button><button id="second" onclick="postQuestion()">Post question</button>
+              <textarea rows="11" cols="36" type="text" id="__SPNS__question-text"></textarea>
+              <button>Preview</button><button id="__SPNS__second" onclick="__SPNS__postQuestion()">Post question</button>
           </div>
       </div>
   </div>

@@ -16,23 +16,23 @@
 
 	<div class = "box-design">
 		<input id = "__SPNS__input" type= "text" placeholder="Remember to do something">
-		<button onclick="addToList()">Add to list</button>
+		<button onclick="__SPNS__addToList()">Add to list</button>
 		<ul id="__SPNS__ulList"></ul>
 	</div>
 	<script>
         var __SPNS__myspHelper = [Plugin:Portlet key="namespace" compute="once"]spHelper;
 
-        function addElement(text, num) {
+        function __SPNS__addElement(text, num) {
             if (text.trim() != "") {
                 var textNode = document.createTextNode(text);
                 var li = document.createElement("LI");
                 li.appendChild(textNode);
-                document.getElementById("ulList").appendChild(li);
+                document.getElementById("__SPNS__ulList").appendChild(li);
                 li.setAttribute("index", (num+""));
             }
         }
 
-        function setToDoListPortletPreferences(obj) {
+        function __SPNS__setToDoListPortletPreferences(obj) {
             if(obj === null)
                 __SPNS__myspHelper.setPortletPreferences(null);
             __SPNS__myspHelper.setPortletPreferences(JSON.stringify(obj));
@@ -41,14 +41,14 @@
             }, function(error){console.log("error");});
         }
 
-        function addToList() {
-            var text = document.getElementById("input").value;
+        function __SPNS__addToList() {
+            var text = document.getElementById("__SPNS__input").value;
             document.getElementById("__SPNS__input").value = null;
             if (text.trim() != "") {
                 var textNode = document.createTextNode(text);
                 var li = document.createElement("LI");
                 li.appendChild(textNode);
-                document.getElementById("ulList").appendChild(li);
+                document.getElementById("__SPNS__ulList").appendChild(li);
                 var data = {"myData":[text]};
                 __SPNS__myspHelper.getPortletPreferences().then(function(prefData){
                     if(prefData !== null) {
@@ -56,28 +56,28 @@
                         if (obj.myData !== null) {
                             li.setAttribute("index", ((obj.myData.length) + ""));
                             obj.myData.splice(obj.myData.length, 0, text);
-                            setToDoListPortletPreferences(obj);
+                            __SPNS__setToDoListPortletPreferences(obj);
                         }
                         else {
-                            setToDoListPortletPreferences(data);
+                            __SPNS__setToDoListPortletPreferences(data);
                         }
                     }
                     else {
-                        setToDoListPortletPreferences(data);
+                        __SPNS__setToDoListPortletPreferences(data);
                     }
                 }, function(error){return;});
             }
         }
 
-        function removeFromList(index) {
+        function __SPNS__removeFromList(index) {
             __SPNS__myspHelper.getPortletPreferences().then(function(prefData){
                 var obj = JSON.parse(prefData);
                 obj.myData.splice(index, 1);
-                setToDoListPortletPreferences(obj);
+                __SPNS__setToDoListPortletPreferences(obj);
             }, function(error){return;});
         }
 
-        function loadToDoListPortletPreferenceData() {
+        function __SPNS__loadToDoListPortletPreferenceData() {
             __SPNS__myspHelper.getPortletPreferences().then(function(prefData) {
                 var temp = {"myData":[]};
                 if(prefData !== null) {
@@ -85,15 +85,15 @@
                     console.log(obj);
                     if (obj.myData !== null) {
                         for (var i = 0; i < obj.myData.length; i++) {
-                            addElement(obj.myData[i], i);
+                            __SPNS__addElement(obj.myData[i], i);
                         }
                     }
                     else {
-                        setToDoListPortletPreferences(temp);
+                        __SPNS__setToDoListPortletPreferences(temp);
                     }
                 }
                 else {
-                    setToDoListPortletPreferences(temp);
+                    __SPNS__setToDoListPortletPreferences(temp);
                 }
             }, function(error) {
                 return;
@@ -102,19 +102,19 @@
 
         $("#__SPNS__ulList").on('click', 'li', function() {
             var temp = $(this).attr("index");
-            removeFromList(temp);
+            __SPNS__removeFromList(temp);
             $(this).remove();
         });
 
         $("#__SPNS__input").keydown(function(event){
             if(event.which === 13) {
-                addToList();
+                __SPNS__addToList();
             }
         })
 
         $(document).ready(function() {
             console.log(__SPNS__myspHelper.userCn);
-            loadToDoListPortletPreferenceData();
+            __SPNS__loadToDoListPortletPreferenceData();
         });
 	</script>
 </body>
