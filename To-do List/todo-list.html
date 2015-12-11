@@ -8,8 +8,15 @@
 			margin: 0px;
 		}
 		#__SPNS__ulList {
-			list-style-image: url('http://i1067.photobucket.com/albums/u432/Bimde/Unchecked%20Box_zps8h2s0kkh.png');
+			list-style-type: none;
 		}
+
+        .__SPNS__li {
+            display: block;
+            background-color: lightgray;
+            width: 100px;
+            margin = 5px;
+        }
 	</style>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -26,6 +33,7 @@
             if (text.trim() != "") {
                 var textNode = document.createTextNode(text);
                 var li = document.createElement("LI");
+                li.setAttribute("class", "__SPNS__li");
                 li.appendChild(textNode);
                 document.getElementById("__SPNS__ulList").appendChild(li);
                 li.setAttribute("index", (num+""));
@@ -48,6 +56,7 @@
                 var textNode = document.createTextNode(text);
                 var li = document.createElement("LI");
                 li.appendChild(textNode);
+                li.setAttribute("class", "__SPNS__li");
                 document.getElementById("__SPNS__ulList").appendChild(li);
                 var data = {"myData":[text]};
                 __SPNS__myspHelper.getPortletPreferences().then(function(prefData){
