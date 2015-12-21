@@ -1,33 +1,27 @@
-function customizeWidget()
+function __SPNS__customizeWidget()
 {
   var page = document.getElementById("link").value;
   var width = document.getElementById("width").value;
   var length = document.getElementById("length").value;
-  verifyInput(page, width, length);
+  __SPNS__verifyInput(page, width, length);
 }
 
-function verifyInput(link, width, length)
+function __SPNS__verifyInput(link, width, length)
 {
-  if(link == "")
-  {
+  if(link == "") {
     link = "https://www.facebook.com/YorkRegionGovt";
   }
-  if(width == "" || isNaN(width))
-  {
+  if(width == "" || isNaN(width)) {
     width = 300;
   }
-  if(length == "" || isNaN(length))
-  {
+  if(length == "" || isNaN(length)) {
     length = 500;
-  }
-  
-  createCustomWidget(link, width, length);
+  }  
+  __SPNS__createCustomWidget(link, width, length);
 }
 
-function createCustomWidget(link, width, length)
-{
-  console.log(link);
-  
+function __SPNS__createCustomWidget(link, width, length)
+{  
   // chnage data to specified values
   document.getElementById("fbPage").removeAttribute("data-href");
   document.getElementById("fbPage").setAttribute("data-href", link);
@@ -36,21 +30,17 @@ function createCustomWidget(link, width, length)
   document.getElementById("fbPage").removeAttribute("data-width");
   document.getElementById("fbPage").setAttribute("data-width", width);
   
-  
-  
   // Make facebook widget visible
   document.getElementById("facebookWidget").className = "";
   document.getElementById("form").className = "displayNone";
 }
 
-function previewWidget ()
+function __SPNS__previewWidget ()
 {
-  if(document.getElementById("facebookWidget").className != "")
-  {
+  if(document.getElementById("facebookWidget").className != "") {
     document.getElementById("facebookWidget").className = "";
   }
-  else
-  {
+  else {
     document.getElementById("facebookWidget").className = "displayNone";
   }
 }
@@ -59,6 +49,6 @@ function previewWidget ()
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
   fjs.parentNode.insertBefore(js, fjs);
 })(document, 'script', 'facebook-jssdk');

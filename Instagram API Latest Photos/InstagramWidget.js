@@ -1,6 +1,6 @@
 $(document).ready( function() {
     var accessToken = "2271466728.9124996.1ef50ce916c249b39691e52c3927b95e";
-    var noImages = 6;
+    var noImages = 8;
     var url = "https://api.instagram.com/v1/users/1345487931/media/recent/?access_token="+accessToken+"&count="+noImages;
     var images;
     $.ajax({

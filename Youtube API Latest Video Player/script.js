@@ -1,10 +1,10 @@
-function appendResults(text) {
+function __SPNS__appendResults(text) {
     var results = document.getElementById('results');
     results.appendChild(document.createElement('P'));
     results.appendChild(document.createTextNode(text));
 }
 
-function makeRequest() {
+function __SPNS__makeRequest() {
     var request = gapi.client.urlshortener.url.get({
         'shortUrl': 'http://goo.gl/fbsS'
     });
@@ -15,22 +15,22 @@ function makeRequest() {
     });
 }
 
-function init() {
+function __SPNS__init() {
     gapi.client.setApiKey('AIzaSyBDJKTF_mYHQUsr-bnRocRUq5DX3sSQ7wQ');
     gapi.client.load('urlshortener', 'v1').then(makeRequest);
 }
 
-function getLatestVideo () {
+function __SPNS__getLatestVideo () {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCFxY4DNdnKNRh0rUyf__gFw&maxResults=1&order=date&fields=items%2Fid&key=AIzaSyBDJKTF_mYHQUsr-bnRocRUq5DX3sSQ7wQ", false);
     xhr.send();
     myText = xhr.response;
     myText = JSON.parse(myText);
     myText = myText.items[0].id.videoId;
-    loadVideo();
+    __SPNS__loadVideo();
 }
 
-function loadVideo() {
+function __SPNS__loadVideo() {
     document.getElementById("results").style.display = "none";
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
@@ -41,18 +41,18 @@ function loadVideo() {
 }
 
 // Play video for 3 seconds as a 'peak' into the video
-function onPlayerStateChange(event) {
+function __SPNS__onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING && !done) {
-        setTimeout(stopVideo, 3000);
+        setTimeout(__SPNS__stopVideo, 3000);
         done = true;
     }
 }
 
-function onPlayerReady(event) {
+function __SPNS__onPlayerReady(event) {
     event.target.playVideo();
 }
 
-function stopVideo() {
+function __SPNS__stopVideo() {
     player.stopVideo();
 }
 
@@ -62,9 +62,9 @@ function onYouTubeIframeAPIReady() {
         width: '384',
         videoId: myText,
         events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            'onReady': __SPNS__onPlayerReady,
+            'onStateChange': __SPNS__onPlayerStateChange
         }
     });
 }
-window.onload = getLatestVideo();
+window.onload = __SPNS__getLatestVideo();
