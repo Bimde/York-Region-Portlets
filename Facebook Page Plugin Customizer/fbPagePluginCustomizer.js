@@ -11,7 +11,7 @@ function verifyInput() {
     link = "https://www.facebook.com/YorkRegionGovt";
   }
   if(width === null || width === "" || isNaN(width)) {
-    width = 300;
+    width = "100%";
   }
   if(length === null || length === "" || isNaN(length)) {
     length = 500;
@@ -26,7 +26,7 @@ function createCustomWidget(link, width, height) {
   document.getElementById("fbPage").setAttribute("data-height", height);
   document.getElementById("fbPage").removeAttribute("data-width");
   document.getElementById("fbPage").setAttribute("data-width", width);
-  loadfb(document, 'script', 'facebook-jssdk');
+  loadFB(document, 'script', 'facebook-jssdk');
 }
 
 function displayWidget() {
@@ -46,7 +46,7 @@ function previewWidget () {
   }
 }
 
-function loadfb(d, s, id) {
+function loadFB(d, s, id) {
   console.log(d + " , " + s + ", " + id);
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {

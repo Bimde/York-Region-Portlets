@@ -10,12 +10,22 @@
   transition: box-shadow 0.5s, border 0.5s;
 }
 
+.fb-page, .fb-page iframe[style], .fb-page span {
+    width: 98% !important;
+}
+
+.fb-comments, .fb-comments iframe[style], .fb-comments span {
+   width: 98% !important;
+}
+
 .overflow {
-  text-align: center;
+  padding: 0;
+  margin: 0;
 }
 
 #facebookWidget__SPNS__ {
-  margin: 0 auto;
+  padding: 0;
+  margin: 0;
 }
 
 .__SPNS__input:focus, .__SPNS__input.focus {
