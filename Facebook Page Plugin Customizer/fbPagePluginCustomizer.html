@@ -1,22 +1,26 @@
 <body>
-<link rel="stylesheet" style="text/css" href="fbPagePluginCustomizer.css">
-<script src="fbPagePluginCustomizer.js"></script>
-<div id="form">
-   <div class="form-element">
-  <div class = "inputLabel"><span class="labels">Page Address</span></div>  <input id="link" placeholder="Default:
-https://www.facebook.com/YorkRegionGovt" value="" size="50"></div>
-   <div class="form-element">
-    <div class = "inputLabel"><span class="labels">Width(px)</span></div> <input id="width" placeholder="Default:
-300px" value="" size="50"></div>
-   <div class="form-element">
-   <div class = "inputLabel"><span class="labels">Height(px)</span></div> <input id="length" placeholder="Default:
-500px" value="" size="50"></div>
-   <button id="customize" onclick="customizeWidget()">Create Facebook Page Widget</button>
-   <button id="customize" onclick="previewWidget()">Preview Widget</button>
-</div>
-  
-  <div id="facebookWidget" class="displayNone">
-<div id="fb-root"></div>
-    <div class="fb-page" data-href="https://www.facebook.com/YorkRegionGovt" data-width="300" data-height= "500" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true" data-show-posts="true" id="fbPage"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/YorkRegionGovt"><a title="" target="" href="https://www.facebook.com/YorkRegionGovt">York Region (The Regional Municipality of York) </a> Facebook Page Updates</blockquote></div></div>  
+  <link rel="stylesheet" style="text/css" href="fbPagePluginCustomizer.css">
+  <script src="fbPagePluginCustomizer.js"></script>
+  <div id="form">
+     <div class="form-element">
+      <input id="link" class="__SPNS__input" placeholder="Link: (Default) https://www.facebook.com/YorkRegionGovt" value="" size="50">
+    </div>
+    <div class="__SPNS__linebreak"></div>
+    <div class="form-element">
+      <input id="width" class="__SPNS__input" placeholder="Width (px): (Default) 300" value="" size="50">
+    </div>
+    <div class="__SPNS__linebreak"></div>
+    <div class="form-element">
+      <input id="length" class="__SPNS__input" placeholder="Height (px): (Default) 500" value="" size="50">
+    </div>
+    <div class="__SPNS__linebreak"></div><div class="__SPNS__linebreak"></div>
+    <button class="__SPNS__customize" onclick="customizeWidget()">Create Facebook Page Widget</button>
+    <button id = "__SPNS__preview-button" class="__SPNS__customize" onclick="previewWidget()">Preview Widget</button>
+  </div>
+  <div class="overflow">  
+    <div id="facebookWidget__SPNS__" class="displayNone">
+      <div id="fb-root"></div>
+      <div class="fb-page" data-href="https://www.facebook.com/YorkRegionGovt" data-width="300" data-height= "500" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true" data-show-posts="true" id="fbPage"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/YorkRegionGovt"><a title="" target="" href="https://www.facebook.com/YorkRegionGovt">York Region (The Regional Municipality of York) </a> Facebook Page Updates</blockquote></div></div>
+    </div>
   </div>
 </body>

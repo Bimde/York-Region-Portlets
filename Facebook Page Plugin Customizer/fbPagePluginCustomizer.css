@@ -1,15 +1,55 @@
-.inputLabel {
-  margin-right: 10px;
+.__SPNS__input {
+  display:inline-block;
+  margin: 2% 1%;
+  margin-left: 0;
+  width: 90%;
+  padding: 1%;
+  padding: 10px;
+  border: none;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.5s, border 0.5s;
+}
+
+.overflow {
+  text-align: center;
+}
+
+#facebookWidget__SPNS__ {
+  margin: 0 auto;
+}
+
+.__SPNS__input:focus, .__SPNS__input.focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+  outline: 0;
 }
 
 .displayNone {
   display:none;
 }
 
-#customize {
-  padding: 5px;
-  margin: 5px;
-  margin-top: 0px;
+.__SPNS__customize {
+  padding: 8px;
+  margin: 1%;
+  margin-left: 0;
+  outline: 0;
+  display:inline-block;
+  border: 1px solid #CCCCCC;
+  background-color: #EEEEEE;
+  transition: background-color 0.3s, border 0.3s;
+}
+
+.__SPNS__customize:hover {
+  border: 1px solid #BBBBBB;
+  background-color: #DDDDDD;
+  outline: 0;
+}
+
+.__SPNS__customize:active {
+  border: 1px solid #AAAAAA;
+  background-color: #CCCCCC;
+  outline: 0;
+  transition: background-color 0s, border 0s;
 }
 
 .labels {
@@ -17,13 +57,11 @@
 }
 
 #form {
-  padding: 2px;
+  padding: 0;
   margin: 0px auto;
-  width: 388px;
+  width: 90%;
 }
 
 .form-element {
-  margin: 10px auto;
-  padding: 2px;
-  background-color: lightgrey;
+  margin: 0;
 }
