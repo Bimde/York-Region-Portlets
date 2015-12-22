@@ -1,37 +1,22 @@
 <body>
-  <script src="fbPagePluginCustomizer.js"></script>
-  <link rel="stylesheet" style="text/css" href="fbPagePluginCustomizer.css">
-  <div id="form">
-    <div class="form-element">
-      <div class = "inputLabel">
-        <span class="labels">Page Address</span>
-      </div>
-      <input id="link" placeholder="Default: https://www.facebook.com/YorkRegionGovt" value="" size="50">
-    </div>
-    <div class="form-element">
-      <div class = "inputLabel">
-        <span class="labels">Width(px)</span>
-      </div>
-      <input id="width" placeholder="Default:300px" value="" size="50">
-    </div>
-    <div class="form-element">
-      <div class = "inputLabel">
-        <span class="labels">Height(px)</span>
-      </div> 
-      <input id="length" placeholder="Default: 500px" value="" size="50">
-    </div>
-    <button id="customize" onclick="__SPNS__customizeWidget()">Create Facebook Page Widget</button>
-    <button id="customize" onclick="__SPNS__previewWidget()">Preview Widget</button>
-  </div>
-
+<link rel="stylesheet" style="text/css" href="fbPagePluginCustomizer.css">
+<script src="fbPagePluginCustomizer.js"></script>
+<div id="form">
+   <div class="form-element">
+  <div class = "inputLabel"><span class="labels">Page Address</span></div>  <input id="link" placeholder="Default:
+https://www.facebook.com/YorkRegionGovt" value="" size="50"></div>
+   <div class="form-element">
+    <div class = "inputLabel"><span class="labels">Width(px)</span></div> <input id="width" placeholder="Default:
+300px" value="" size="50"></div>
+   <div class="form-element">
+   <div class = "inputLabel"><span class="labels">Height(px)</span></div> <input id="length" placeholder="Default:
+500px" value="" size="50"></div>
+   <button id="customize" onclick="customizeWidget()">Create Facebook Page Widget</button>
+   <button id="customize" onclick="previewWidget()">Preview Widget</button>
+</div>
+  
   <div id="facebookWidget" class="displayNone">
-    <div id="fb-root"></div>
-    <div class="fb-page" data-href="https://www.facebook.com/YorkRegionGovt" data-width="300" data-height= "500" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true" data-show-posts="true" id="fbPage">
-      <div class="fb-xfbml-parse-ignore">
-        <blockquote cite="https://www.facebook.com/YorkRegionGovt">
-          <a title="" target="" href="https://www.facebook.com/YorkRegionGovt">York Region (The Regional Municipality of York)</a>Facebook Page Updates
-        </blockquote>
-      </div>
-    </div>
+<div id="fb-root"></div>
+    <div class="fb-page" data-href="https://www.facebook.com/YorkRegionGovt" data-width="300" data-height= "500" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true" data-show-posts="true" id="fbPage"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/YorkRegionGovt"><a title="" target="" href="https://www.facebook.com/YorkRegionGovt">York Region (The Regional Municipality of York) </a> Facebook Page Updates</blockquote></div></div>  
   </div>
 </body>

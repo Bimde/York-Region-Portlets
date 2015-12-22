@@ -4,7 +4,7 @@
 
 	<div id="__SPNS__box-design">
 		<input id="__SPNS__input" type = "text" placeholder="Remember to do something">
-		<button onclick="__SPNS__addToList()">Add to list</button>
+		<button id ="__SPNS__button" onclick="__SPNS__addToList()">Add to list</button>
 		<div id="__SPNS__ulList"></div>
 	</div>
 	<script>
@@ -13,12 +13,17 @@
         function __SPNS__addElement(text, num) {
             if (text.trim() != "") {
                 var textNode = document.createTextNode(text);
+                var spanNode = document.createElement("SPAN");
+                spanNode.setAttribute("class", ".__SPNS__text");
+                spanNode.appendChild(textNode);
                 var li = document.createElement("DIV");
-                li.setAttribute("class", "__SPNS__li");
-                li.appendChild(textNode);
+                var span = document.createElement("SPAN");
+                span.setAttribute("class", ".__SPNS__span");
+                li.setAttribute("class", "__SPNS__liWide");
+                li.appendChild(span);
+                span.appendChild(spanNode);
                 document.getElementById("__SPNS__ulList").appendChild(li);
                 li.setAttribute("index", (num+""));
-                __SPNS__adjustWidths();
             }
         }
 
@@ -41,28 +46,20 @@
             }
         }
 
-        function __SPNS__adjustWidths() {
-            var list = document.getElementsByClassName("__SPNS__li");
-            for(var i = 0; i < list.length; i++) {
-                var temp = list[i];
-                console.log(temp.offsetWidth + " : " + __SPNS__body.offsetWidth);
-                if(temp.offsetWidth > (__SPNS__body.offsetWidth / 2)) {
-                    temp.setAttribute("class", "__SPNS__liWide");
-                    console.log("entered");
-                } else {
-                     temp.setAttribute("class", "__SPNS__li");
-                }
-            }
-        }
-
         function __SPNS__addToList() {
             var text = document.getElementById("__SPNS__input").value;
             document.getElementById("__SPNS__input").value = null;
             if (text.trim() != "") {
                 var textNode = document.createTextNode(text);
                 var li = document.createElement("DIV");
-                li.appendChild(textNode);
-                li.setAttribute("class", "__SPNS__li");
+                var spanNode = document.createElement("SPAN");
+                spanNode.setAttribute("class", ".__SPNS__text");
+                spanNode.appendChild(textNode);
+                var span = document.createElement("SPAN");
+                span.setAttribute("class", ".__SPNS__span");
+                li.setAttribute("class", "__SPNS__liWide");
+                li.appendChild(span);
+                span.appendChild(spanNode);
                 document.getElementById("__SPNS__ulList").appendChild(li);
                 var data = {"myData":[text]};
                 __SPNS__myspHelper.getPortletPreferences().then(function(prefData){
@@ -81,7 +78,6 @@
                         __SPNS__setToDoListPortletPreferences(data);
                     }
                 }, function(error){return;});
-                __SPNS__adjustWidths();
             }
         }
 
