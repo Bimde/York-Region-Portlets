@@ -1,25 +1,26 @@
 // Not 'const' to allow to better browser support
 var __SPNS__MIN_WIDTH = 180, __SPNS__MAX_WIDTH = 500, __SPNS__MIN_HEIGHT = 70;
+var __SPNS__height, __SPNS__width, __SPNS__link;
 
-function customizeWidget() {
+function __SPNS__customizeWidget() {
   verifyInput();
-  displayWidget();
+  __SPNS__displayWidget();
 }
 
 function verifyInput() {
-  var link = document.getElementById("link").value;
-  var width = document.getElementById("width").value;
-  var length = document.getElementById("length").value;
+  var link = document.getElementById("__SPNS__link").value;
+  var width = document.getElementById("__SPNS__width").value;
+  var height = document.getElementById("__SPNS__height").value;
   if(link === "" || link === null) {
     link = "https://www.facebook.com/YorkRegionGovt";
   }
   if(width === null || width === "" || isNaN(width)) {
     width = "300";
   }
-  if(length === null || length === "" || isNaN(length)) {
-    length = "500";
+  if(height === null || height === "" || isNaN(height)) {
+    height = "500";
   }
-  createCustomWidget(link, width, length);
+  createCustomWidget(link, width, height);
   //loadFB(document, 'script', 'facebook-jssdk');
 }
 
@@ -39,13 +40,27 @@ function createCustomWidget(link, width, height) {
   document.getElementById("facebookWidget__SPNS__").style.width = width + "px";
   document.getElementById("facebookWidget__SPNS__").style.height = height + "px";
 
-  console.log(document.getElementById("fb_root"));
+// Save the values for later use
+  __SPNS__height = height;
+  __SPNS__width = width;
+  __SPNS__link = link;
+
   loadFB(document, 'script', 'facebook-jssdk');
 }
 
-function displayWidget() {
+function __SPNS__displayWidget() {
   document.getElementById("form").className = "displayNone";
   document.getElementById("overflow__SPNS__").style.display = "block";
+  document.getElementById("customize__SPNS__").style.display = "block";
+}
+
+function __SPNS__openCustomization() {
+  document.getElementById("__SPNS__link").value = __SPNS__link === "https://www.facebook.com/YorkRegionGovt" ? null : __SPNS__link;
+  document.getElementById("__SPNS__height").value = __SPNS__height === "500" ? null : __SPNS__height;
+  document.getElementById("__SPNS__width").value = __SPNS__width === "300" ? null : __SPNS__width;
+  document.getElementById("form").className = "";
+  document.getElementById("overflow__SPNS__").style.display = "none";
+  document.getElementById("customize__SPNS__").style.display = "none";
 }
 
 function toggleWidget() {

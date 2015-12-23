@@ -3,22 +3,23 @@
   <script src="fbPagePluginCustomizer.js"></script>
   <div id="form">
      <div class="form-element">
-      <input id="link" class="__SPNS__input" placeholder="Link: (Default) https://www.facebook.com/YorkRegionGovt" value="" size="50">
+      <input id="__SPNS__link" class="__SPNS__input" placeholder="Link: Default: https://www.facebook.com/YorkRegionGovt" value="">
     </div>
     <div class="__SPNS__linebreak"></div>
     <div class="form-element">
-      <input id="width" class="__SPNS__input" placeholder="Width (px): (Default) 300" value="" size="50">
+      <input id="__SPNS__width" class="__SPNS__input" placeholder="Width (px): Default: 300 | Min: 180 | Max: 500" value="">
     </div>
     <div class="__SPNS__linebreak"></div>
     <div class="form-element">
-      <input id="length" class="__SPNS__input" placeholder="Height (px): (Default) 500" value="" size="50">
+      <input id="__SPNS__height" class="__SPNS__input" placeholder="Height (px): Default: 500 | Min: 70" value="">
     </div>
     <div class="__SPNS__linebreak"></div><div class="__SPNS__linebreak"></div>
-    <button class="__SPNS__customize" onclick="customizeWidget()">Create Facebook Page Widget</button>
-    <button id = "__SPNS__preview-button" class="__SPNS__customize" onclick="toggleWidget()">Preview Widget</button>
+    <button class="__SPNS__button" onclick="__SPNS__customizeWidget()">Create Facebook Page Widget</button>
+    <button id = "__SPNS__preview-button" class="__SPNS__button" onclick="toggleWidget()">Preview Widget</button>
   </div>
   <div id="overflow__SPNS__">  
     <div id="facebookWidget__SPNS__">
+      <button id="customize__SPNS__" onclick="__SPNS__openCustomization()">Customize</button>
       <div id="fb-root"></div>
       <div class="fb-page" data-href="https://www.facebook.com/YorkRegionGovt" data-width="300" data-height="500" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true" data-show-posts="true" id="fbPage"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/YorkRegionGovt"><a title="" target="" href="https://www.facebook.com/YorkRegionGovt">York Region (The Regional Municipality of York) </a> Facebook Page Updates</blockquote></div></div>
     </div>
