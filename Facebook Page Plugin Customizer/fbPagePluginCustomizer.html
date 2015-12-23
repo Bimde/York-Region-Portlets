@@ -1,5 +1,8 @@
 <body>
-  <script>var __SPNS__myspHelper = [Plugin:Portlet key="namespace" compute="once"]spHelper;</script>
+  <script>
+    //IBM spHelper doesn't work when initialized from a .js file
+    var __SPNS__myspHelper = [Plugin:Portlet key="namespace" compute="once"]spHelper;
+  </script>
   <link rel="stylesheet" style="text/css" href="fbPagePluginCustomizer.css">
   <script src="fbPagePluginCustomizer.js"></script>
   <div id="form__SPNS__">
@@ -26,4 +29,4 @@
     </div>
   </div>
 </body>
-<script>__SPNS__init();</script>
+<script>/*Allows for widget initilzation after portlet DOM has loaded*/__SPNS__init();</script>
