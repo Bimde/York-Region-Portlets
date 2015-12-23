@@ -1,21 +1,22 @@
 <body>
+  <script>var __SPNS__myspHelper = [Plugin:Portlet key="namespace" compute="once"]spHelper;</script>
   <link rel="stylesheet" style="text/css" href="fbPagePluginCustomizer.css">
   <script src="fbPagePluginCustomizer.js"></script>
-  <div id="form">
-     <div class="form-element">
+  <div id="form__SPNS__">
+     <div class="__SPNS__form-element">
       <input id="__SPNS__link" class="__SPNS__input" placeholder="Link: Default: https://www.facebook.com/YorkRegionGovt" value="">
     </div>
     <div class="__SPNS__linebreak"></div>
-    <div class="form-element">
+    <div class="__SPNS__form-element">
       <input id="__SPNS__width" class="__SPNS__input" placeholder="Width (px): Default: 300 | Min: 180 | Max: 500" value="">
     </div>
     <div class="__SPNS__linebreak"></div>
-    <div class="form-element">
+    <div class="__SPNS__form-element">
       <input id="__SPNS__height" class="__SPNS__input" placeholder="Height (px): Default: 500 | Min: 70" value="">
     </div>
     <div class="__SPNS__linebreak"></div><div class="__SPNS__linebreak"></div>
     <button class="__SPNS__button" onclick="__SPNS__customizeWidget()">Create Facebook Page Widget</button>
-    <button id = "__SPNS__preview-button" class="__SPNS__button" onclick="toggleWidget()">Preview Widget</button>
+    <button id = "__SPNS__preview-button" class="__SPNS__button" onclick="__SPNS__toggleWidget()">Preview Widget</button>
   </div>
   <div id="overflow__SPNS__">  
     <div id="facebookWidget__SPNS__">
@@ -25,3 +26,4 @@
     </div>
   </div>
 </body>
+<script>__SPNS__init();</script>
