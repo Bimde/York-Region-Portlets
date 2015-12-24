@@ -1,0 +1,85 @@
+div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar {
+    list-style-type: none;
+    padding: 0px;
+}
+
+div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar li.__SPNS__item {
+    display:inline-block;
+    margin: 0px;
+    padding: 0px;
+}
+
+div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar li.__SPNS__item div.__SPNS__item {
+    display:inline-block;
+    background-color: lightgrey;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid dimgrey;
+    line-height: 20px;
+    text-align:center;
+    height: 20px;
+}
+
+div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar li.__SPNS__item div.__SPNS__item:hover {
+    background-color: gray;
+}
+
+div#__SPNS__favouritesBarContentPane ul#__SPNS__favouritesBarBar li.__SPNS__item div.__SPNS__item:active {
+    background-color: dimgray;
+}
+
+div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div span.inputLabel {
+    display: inline-block;
+    width: 60px;
+    text-align: center;
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div input.__SPNS__input102 {
+    display: inline-block;
+    width: 200px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float:right;
+}
+
+div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div.__SPNS__button {
+    display: inline-block;
+    width: 125px;
+    padding: 4px;
+    margin-top: 6px;
+    margin-bottom: 5px;
+    height: 20px;
+    border: 1px solid dimgrey;
+    text-align: center;
+    border-radius: 3px;
+    float: right;
+}
+
+div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div#smallerButton.__SPNS__button {
+    width: 60px;
+    float: left;
+}
+
+div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div.__SPNS__button:hover {
+    background-color: gray;
+}
+
+div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm div.__SPNS__button:active{
+    background-color: dimgrey;
+}
+
+div#__SPNS__favouritesBarContentPane div#__SPNS__favouritesBarInputForm {
+    display: none;
+    background-color: lightgrey;
+    padding: 10px;
+    border-radius: 4px;
+    width: 276px;
+    height: 100px;
+}

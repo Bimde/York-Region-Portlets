@@ -1,0 +1,88 @@
+#__SPNS__forum * {
+    padding: 0px;
+    margin: 0px;
+}
+
+#__SPNS__forum {
+    position: relative;
+    border: 5px solid dimgrey;
+    border-radius: 5px;
+    height: 300px;
+    width: 300px;
+    background-color: gray;
+}
+
+#__SPNS__forum .__SPNS__container {
+    width: 300px;
+    height: 250px;
+    position: absolute;
+    bottom: 0;
+}
+
+#__SPNS__forum #__SPNS__question-view.__SPNS__container {
+    margin: 0px;
+    width: 300px;
+    padding: 0px;
+    overflow: initial;
+}
+#__SPNS__forum #__SPNS__ask-question.__SPNS__container {
+    background-color: lightgrey;
+    padding: 5px;
+    width: 290px;
+    overflow: auto;
+}
+
+#__SPNS__forum #__SPNS__question-view.__SPNS__container #__SPNS__actualQuestion {
+    overflow: auto;
+    height: 215px;
+    text-align: left;
+}
+
+#__SPNS__forum #__SPNS__home.__SPNS__container #__SPNS__questionList {
+    overflow: auto;
+    height: 215px;
+}
+
+#__SPNS__forum #__SPNS__home #__SPNS__itemList {
+    list-style-type: none;
+}
+
+#__SPNS__forum li {
+    margin: 5px;
+    margin-top: 0;
+    padding: 5px;
+    background-color: lightgrey;
+    border-radius: 2px;
+}
+#__SPNS__forum li#__SPNS__question {
+    background-color: lightblue;
+}
+
+#__SPNS__forum .__SPNS__top-button {
+    margin: 5px;
+    border-radius: 4px;
+    padding: 3px;
+}
+
+#__SPNS__forum #__SPNS__ask-question.__SPNS__container #__SPNS__ask-question-body textarea {
+    margin-top:5px;
+    resize: vertical;
+    margin-left: 5px;
+}
+
+#__SPNS__forum #__SPNS__ask-question.__SPNS__container #__SPNS__ask-question-body input {
+    margin-left: 5px;
+    margin-right: 0;
+    padding: 0;
+    width: 225px;
+}
+
+#__SPNS__forum #__SPNS__ask-question.__SPNS__container #__SPNS__ask-question-body button {
+    padding: 5px;
+    margin-top: 5px;
+    margin-left: 109px;
+    float:left;
+}
+#__SPNS__forum #__SPNS__ask-question.__SPNS__container #__SPNS__ask-question-body button#__SPNS__second {
+    margin-left: 10px;
+}
